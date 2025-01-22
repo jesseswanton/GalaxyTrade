@@ -1,0 +1,2 @@
+// Sliding inventory panel component
+

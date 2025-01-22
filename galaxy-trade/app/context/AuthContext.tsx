@@ -1,0 +1,2 @@
+// Context for authentication state
+

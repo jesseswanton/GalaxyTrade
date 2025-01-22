@@ -1,0 +1,68 @@
+/* app/styles/globals.css */
+
+/* Global reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Basic styling for Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #2b6cb0; /* Teal blue color */
+  color: white;
+}
+
+.navbar .logo h1 {
+  font-size: 1.8rem;
+}
+
+.navbar .links a {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+
+.navbar .links a:hover {
+  text-decoration: underline;
+}
+
+/* Basic styling for Footer */
+.footer {
+  background-color: #1a202c; /* Dark gray background */
+  color: white;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-links a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: white;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer p {
+  margin-bottom: 1rem;
+}
+
+/* Make footer stick to the bottom */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
