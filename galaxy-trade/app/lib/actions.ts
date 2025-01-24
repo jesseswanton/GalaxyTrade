@@ -6,19 +6,19 @@ import bcrypt from 'bcrypt'
 import { User } from './definitions';
 
   
-export async function addUser(name:string, email: string, password: string) {
+export async function addUser(username:string, password: string, contact: string) {
     const saltRounds = 10
     const hashedPassword = await bcrypt.hash(password, saltRounds)
     try {
-        await sql<User>`INSERT INTO users (name, email, password) VALUES (${name}, ${email}, ${hashedPassword})`
+        await sql<User>`INSERT INTO users (username, password, contact) VALUES (${username}, ${hashedPassword}, ${contact})`
     } catch (error) {
         console.error(error)
     }
 }
 
-export async function getUserByEmail(email: string) {
+export async function getUserByUsername(username: string) {
     try {
-        const user = await sql<User>`SELECT * FROM users WHERE email = ${email}`
+        const user = await sql<User>`SELECT * FROM users WHERE username = ${username}`
         return user
     } catch (error) {
         console.error(error)

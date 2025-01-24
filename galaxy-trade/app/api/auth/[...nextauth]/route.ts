@@ -1,4 +1,4 @@
-import { getUserByEmail } from "@/app/lib/actions";
+import { getUserByUsername } from "@/lib/actions";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
@@ -10,15 +10,15 @@ const handler = NextAuth({
   providers: [
     CredentialsProvider({
       credentials: {
-        email: {},
+        username: {},
         password: {},
       },
       async authorize(credentials) {
         //
-        if (!credentials?.email) {
+        if (!credentials?.username) {
           return null;
         }
-        const response = await getUserByEmail(credentials.email);
+        const response = await getUserByUsername(credentials.username);
         console.log({ response });
 
         if (!response) {
@@ -34,7 +34,7 @@ const handler = NextAuth({
         if (passwordCorrect) {
           return {
             id: user.id,
-            email: user.email,
+            username: user.username,
           };
         }
         return null;

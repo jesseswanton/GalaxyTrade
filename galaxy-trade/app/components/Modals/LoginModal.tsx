@@ -1,4 +1,5 @@
 // Login modal component
+'use client'
 import { Input, Stack, Card, Button, Box } from "@chakra-ui/react";
 import { PasswordInput } from "@/components/ui/password-input";
 import Link from "next/link";
@@ -14,7 +15,7 @@ export default function LoginModal() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const username = formData.get("username");
-    const email = formData.get("email");
+    const contact = formData.get("contact");
     const password = formData.get("password");
     const passwordConfirm = formData.get("password-confirm");
 
@@ -23,7 +24,7 @@ export default function LoginModal() {
       return;
     }
 
-    if (!username || !email || !password || !passwordConfirm) {
+    if (!username || !contact || !password || !passwordConfirm) {
       setAlert("Please fill in all fields");
       return;
     }
@@ -31,9 +32,9 @@ export default function LoginModal() {
     await fetch("/api/auth/register", {
       method: "POST",
       body: JSON.stringify({
-        name: name,
-        email: email,
+        username: name,
         password: password,
+        contact: contact,
       }),
     });
   };
@@ -44,7 +45,7 @@ export default function LoginModal() {
 
     try {
       const response = await signIn("credentials", {
-        email: formData.get("email"),
+        username: formData.get("username"),
         password: formData.get("password"),
         callbackUrl: "/",
         redirect: false,
@@ -68,7 +69,7 @@ export default function LoginModal() {
             </Card.Header>
             <Card.Body h={"50%"} flex={0}>
               <Stack>
-                <Input outline={"solid"} p={3} type="text" name="email" />
+                <Input outline={"solid"} p={3} type="text" name="username" />
                 <PasswordInput
                   outline={"solid"}
                   p={3}
@@ -111,7 +112,7 @@ export default function LoginModal() {
             <Card.Body h={"50%"} flex={0}>
               <Stack>
                 <Input outline={"solid"} p={3} type="text" name="username" />
-                <Input outline={"solid"} p={3} type="text" name="email" />
+                <Input outline={"solid"} p={3} type="text" name="contact" />
                 <Input outline={"solid"} p={3} type="text" name="password" />
                 <Input
                   outline={"solid"}

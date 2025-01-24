@@ -1,9 +1,9 @@
 // Navigation bar component
-
-import { FC } from 'react';
 import Link from 'next/link';
+import Login from './login'
+import Logout from './logout'
 
-const Navbar: FC = () => {
+export default function Navbar({ isLoggedIn }: { isLoggedIn: boolean }) { 
   return (
     <nav className="navbar">
       <div className="logo">
@@ -11,9 +11,12 @@ const Navbar: FC = () => {
       </div>
       <div className="links">
         <Link href="/">Home</Link>
+        {isLoggedIn ? (
+          <Logout />
+        ) : (
+          <Login />
+        )}
       </div>
     </nav>
   );
 };
-
-export default Navbar;
