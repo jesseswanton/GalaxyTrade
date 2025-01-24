@@ -21,7 +21,7 @@ export default function Login() {
             <div className="flex items-center">
               <HiMiniUserCircle
                 className="hover:cursor-pointer active:scale-90"
-                size={56}
+                size={"2xl"} 
               />
               <p className="hidden md:block">Login/Signup</p>
             </div>

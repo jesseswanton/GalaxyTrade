@@ -15,6 +15,9 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         //
+
+        console.log(credentials)
+
         if (!credentials?.username) {
           return null;
         }
@@ -32,19 +35,18 @@ const handler = NextAuth({
           user.password
         );
 
+        console.log(passwordCorrect)
+
         if (passwordCorrect) {
           return {
             id: user.id,
-            username: user.username,
+            name: user.username,
           };
         }
         return null;
       },
     }),
   ],
-  pages: {
-    signIn: "/login",
-  },
 });
 
 export { handler as GET, handler as POST };

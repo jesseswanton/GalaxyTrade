@@ -1,3 +1,4 @@
+'use client'
 // Navigation bar component
 import Link from 'next/link';
 import Login from './login'
@@ -15,7 +16,7 @@ export default function Navbar({ isLoggedIn, username }: { isLoggedIn: boolean, 
       <div className="logo">
         <h1>GalaxyTrade 🌌</h1>
       </div>
-      <div className="links">
+      <div className="links flex items-center">
         <Link href="/">Home</Link>
         {isLoggedIn ? (
           <Logout username={username}/>

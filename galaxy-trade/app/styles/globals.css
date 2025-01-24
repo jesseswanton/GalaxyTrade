@@ -1,4 +1,7 @@
 /* app/styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Global reset */
 * {
@@ -70,4 +73,9 @@ body {
 .login-toggle:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.links {
+  display: flex;
+
 }

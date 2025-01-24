@@ -1,5 +1,7 @@
+
+
 import { signOut } from "next-auth/react";
-import Link from "next/link";
+// import Link from "next/link";
 import { Avatar } from "@/components/ui/avatar";
 
 export default function Logout({ username }: { username: string }) {
@@ -8,9 +10,9 @@ export default function Logout({ username }: { username: string }) {
   return (
     <div className="flex items-center">
         <p className="mr-2">{`Hello! ${username}`}</p>
-      <Link href={"/profile"}>
+      {/* <Link href={"/profile"}> */}
         <Avatar size="2xl" name={username} src={ ex_profile_pic} />
-      </Link>
+      {/* </Link> */}
       <button className="hover:underline m-1" onClick={() => signOut()}>Logout</button>
     </div>
   );
