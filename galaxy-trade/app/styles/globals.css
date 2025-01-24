@@ -66,3 +66,8 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.login-toggle:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

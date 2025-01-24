@@ -1,4 +1,4 @@
-import { getUserByUsername } from "@/lib/actions";
+import { getUserByUsername } from "../../../lib/actions";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
@@ -19,6 +19,7 @@ const handler = NextAuth({
           return null;
         }
         const response = await getUserByUsername(credentials.username);
+        
         console.log({ response });
 
         if (!response) {

@@ -86,7 +86,7 @@ const VisibilityTrigger = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <IconButton
         tabIndex={-1}
         ref={ref}
-        me="-2"
+        me=""
         aspectRatio="square"
         size="sm"
         variant="ghost"

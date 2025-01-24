@@ -1,15 +1,19 @@
 // Login modal component
-'use client'
-import { Input, Stack, Card, Button, Box } from "@chakra-ui/react";
+"use client";
+import { Input, Stack, Card, Button } from "@chakra-ui/react";
 import { PasswordInput } from "@/components/ui/password-input";
-import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { Alert } from "@/components/ui/alert";
+import '../../styles/globals.css'
 
 export default function LoginModal() {
   const [alert, setAlert] = useState("");
   const [logIn, setLogIn] = useState(true);
+
+  useEffect(() => {
+    setAlert("")
+  },[logIn])
 
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,7 +36,7 @@ export default function LoginModal() {
     await fetch("/api/auth/register", {
       method: "POST",
       body: JSON.stringify({
-        username: name,
+        username: username,
         password: password,
         contact: contact,
       }),
@@ -42,11 +46,18 @@ export default function LoginModal() {
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const username = formData.get("username");
+    const password = formData.get("password");
+
+    if (!username || !password) {
+      setAlert("Please finish the form");
+      return;
+    }
 
     try {
       const response = await signIn("credentials", {
-        username: formData.get("username"),
-        password: formData.get("password"),
+        username: username,
+        password: password,
         callbackUrl: "/",
         redirect: false,
       });
@@ -60,89 +71,84 @@ export default function LoginModal() {
     <>
       {logIn ? (
         <form onSubmit={handleLogin}>
-          <Card.Root flex={1} minHeight={"fit-content"} rounded={0}>
+          <Card.Root flex={1} minHeight={"fit-content"} rounded={0} border={0}>
             <Card.Header>
-              <Card.Title>Sign Up</Card.Title>
-              <Card.Description>
-                Fill in the form below to create an account!
+              <Card.Title>Log In</Card.Title>
+              <Card.Description my={2}>
+                Fill in the form below to Log in!
               </Card.Description>
             </Card.Header>
             <Card.Body h={"50%"} flex={0}>
-              <Stack>
-                <Input outline={"solid"} p={3} type="text" name="username" />
+              <Stack gap={3} mx={1}>
+                <h2>Username</h2>
+                <Input outline={"solid"} p={3} type="text" name="username" outlineWidth={1}/>
+                <h2>Password</h2>
                 <PasswordInput
                   outline={"solid"}
+                  outlineWidth={1}
                   p={3}
                   type="text"
                   name="password"
                 />
               </Stack>
             </Card.Body>
-            <Card.Footer>
-              <Link href={"/"}>
-                <Button variant={"outline"}>Cancel</Button>
-              </Link>
-              <Button variant={"solid"} type="submit">
-                Log In
+            <Card.Footer justifyContent={"space-between"} mx={1}>
+              <div className="text-lg">
+                Dont have an account yet?{" "}
+                <button
+                type="button"
+                className="login-toggle"
+                onClick={() => setLogIn(false)}
+                >Click here to sign up!</button>
+              </div>
+              <Button variant={"solid"} type="submit" my={3} p={3} size={"md"}>
+                Log In 🚀
               </Button>
             </Card.Footer>
-            <Alert>{alert}</Alert>
-            <Box p={3} rounded={2} className="w-full sm:w-fit">
-              <p>
-                Dont have an account?{" "}
-                <button
-                  className="hover:underline"
-                  onClick={() => setLogIn(false)}
-                >
-                  Click here to create an account
-                </button>
-              </p>
-            </Box>
+            {alert && <Alert w={"1/2"} size={"lg"}>{alert}</Alert>}
           </Card.Root>
         </form>
       ) : (
         <form onSubmit={handleRegister}>
-          <Card.Root flex={1} minHeight={"fit-content"} rounded={0}>
+          <Card.Root flex={1} minHeight={"fit-content"} rounded={0} border={0}>
             <Card.Header>
               <Card.Title>Sign Up</Card.Title>
-              <Card.Description>
+              <Card.Description my={2}>
                 Fill in the form below to create an account!
               </Card.Description>
             </Card.Header>
             <Card.Body h={"50%"} flex={0}>
-              <Stack>
-                <Input outline={"solid"} p={3} type="text" name="username" />
-                <Input outline={"solid"} p={3} type="text" name="contact" />
-                <Input outline={"solid"} p={3} type="text" name="password" />
-                <Input
+              <Stack gap={3} mx={1}>
+                <h2>Username</h2>
+                <Input outline={"solid"} p={3} type="text" name="username" outlineWidth={1}/>
+                <h2>Password</h2>
+                <PasswordInput
                   outline={"solid"}
+                  outlineWidth={1}
                   p={3}
                   type="text"
-                  name="password-confirm"
+                  name="password"
                 />
+                <h2>Confirm password</h2>
+                <PasswordInput outline={"solid"} p={3} type="text" name="password-confirm" outlineWidth={1}/>
+                <h2>Contact Info</h2>
+                <Input outline={"solid"} p={3} type="text" name="contact" outlineWidth={1}/>
               </Stack>
             </Card.Body>
-            <Card.Footer>
-              <Link href={"/"}>
-                <Button variant={"outline"}>Cancel</Button>
-              </Link>
-              <Button variant={"solid"} type="submit">
-                Log In
+            <Card.Footer justifyContent={"space-between"} mx={1}>
+              <div className="text-lg">
+                Have an account?{" "}
+                <button
+                type="button"
+                className="login-toggle"
+                onClick={() => setLogIn(true)}
+                >Click here to Log in!</button>
+              </div>
+              <Button variant={"solid"} type="submit" my={3} p={3} size={"md"}>
+                Sign up 🚀
               </Button>
             </Card.Footer>
-            <Alert>{alert}</Alert>
-            <Box className="w-full sm:w-fit" p={3} rounded={2}>
-              <p>
-                Have an account?{" "}
-                <Button
-                  className="hover:underline"
-                  type="button"
-                  onClick={() => setLogIn(true)}
-                >
-                  Click here to log in
-                </Button>
-              </p>
-            </Box>
+            {alert && <Alert w={"1/2"} size={"lg"}>{alert}</Alert>}
           </Card.Root>
         </form>
       )}

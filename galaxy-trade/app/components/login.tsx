@@ -1,6 +1,5 @@
 import { HiMiniUserCircle } from "react-icons/hi2";
 import {
-  DrawerActionTrigger,
   DrawerBackdrop,
   DrawerBody,
   DrawerCloseTrigger,
@@ -15,7 +14,7 @@ import LoginModal from "@/app/components/Modals/LoginModal";
 export default function Login() {
   return (
     <div>
-      <DrawerRoot>
+      <DrawerRoot size={"lg"}>
         <DrawerBackdrop />
         <DrawerTrigger asChild>
           <Button variant="outline" size="sm">
@@ -29,15 +28,12 @@ export default function Login() {
           </Button>
         </DrawerTrigger>
         <DrawerContent>
-          <DrawerBody>
+          <DrawerBody p={5}>
             <LoginModal />
           </DrawerBody>
           <DrawerFooter>
-            <DrawerActionTrigger asChild>
-              <Button variant="outline">Cancel</Button>
-            </DrawerActionTrigger>
           </DrawerFooter>
-          <DrawerCloseTrigger />
+          <DrawerCloseTrigger/>
         </DrawerContent>
       </DrawerRoot>
     </div>

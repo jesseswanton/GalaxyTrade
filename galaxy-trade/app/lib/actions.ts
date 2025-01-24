@@ -24,3 +24,12 @@ export async function getUserByUsername(username: string) {
         console.error(error)
     }
 }
+
+export async function getProfilePic(username: string) {
+    try {
+        const user = await sql<User>`SELECT * FROM users WHERE username = ${username}`
+        return user.rows[0] || ''
+    } catch (error) {
+        console.error(error)
+    }
+}
