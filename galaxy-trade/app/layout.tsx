@@ -3,6 +3,7 @@ import { FC, ReactNode } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Head from 'next/head';
+import { Provider } from '@/components/ui/provider';
 
 interface LayoutProps {
   children: ReactNode;
@@ -17,11 +18,13 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         <title>GalaxyTrade</title>
       </Head>
       <body>
-        <header>
-          <Navbar />
-        </header>
-          <main>{children}</main>
-        <Footer />
+        <Provider>
+          <header>
+            <Navbar />
+          </header>
+            <main>{children}</main>
+          <Footer />
+        </Provider>
       </body>
     </html>
   );
