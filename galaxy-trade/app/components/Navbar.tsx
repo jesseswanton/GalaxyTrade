@@ -10,7 +10,7 @@ export default function Navbar({ isLoggedIn, username }: { isLoggedIn: boolean, 
   //   const profilePic = await getProfilePic(username)
   //   return profilePic
   // }
- 
+
   return (
     <nav className="navbar">
       <div className="logo">

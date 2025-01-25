@@ -1,6 +1,10 @@
 // Home page which will diplay ItemCard.tsx component
 
-export default function Home() {
+'use client';
+
+import { FC } from 'react';
+
+const HomePage: FC = () => {
   return (
     <div>
       <h1>Welcome to GalaxyTrade 🌌</h1>
@@ -8,3 +12,5 @@ export default function Home() {
     </div>
   );
 };
+
+export default HomePage;

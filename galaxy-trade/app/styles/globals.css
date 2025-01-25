@@ -16,7 +16,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #2b6cb0; /* Teal blue color */
+  background-color: #181818; /* Teal blue color */
   color: white;
 }
 
@@ -37,7 +37,7 @@
 
 /* Basic styling for Footer */
 .footer {
-  background-color: #1a202c; /* Dark gray background */
+  background-color: #181818; /* Dark gray background */
   color: white;
   padding: 2rem 0;
   text-align: center;
