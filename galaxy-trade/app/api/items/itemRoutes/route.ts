@@ -6,8 +6,33 @@ export async function GET() {
     const client = await db.connect();
 
     try {
-        const items = await client.sql`SELECT * FROM items`;
-        return NextResponse.json(items.rows);
+        const items = await client.sql`
+            SELECT 
+                items.*, 
+                COALESCE(
+                    json_agg(
+                        json_build_object(
+                            'id', offers.id,
+                            'item_id', offers.item_id,
+                            'offerer', offers.offerer,
+                            'offeredItemId', offers.offeredItemId,
+                            'status', offers.status
+                        )
+                    ) FILTER (WHERE offers.id IS NOT NULL), '[]'
+                ) AS offers
+            FROM items
+            LEFT JOIN offers ON items.id = offers.item_id
+            GROUP BY items.id;
+        `;
+
+        // Serialize the offers data into valid JSON strings
+        const serializedItems = items.rows.map(item => ({
+            ...item,
+            offers: item.offers
+        }));
+
+        return NextResponse.json(serializedItems);
+
     } catch (error) {
         console.error('Error fetching items:', error);
         return NextResponse.json({ error: 'Failed to fetch items' }, { status: 500 });
@@ -16,8 +41,9 @@ export async function GET() {
     }
 }
 
+
 export async function POST(request: Request) {
-    
+
     const client = await db.connect();
     const { title, description, condition, image, owner, tradable } = await request.json();
 
@@ -27,7 +53,11 @@ export async function POST(request: Request) {
             VALUES (${title}, ${description}, ${condition}, ${image}, ${owner}, ${tradable})
             RETURNING *;
         `;
-        return NextResponse.json(newItem);
+
+        const itemWithOffers = { ...newItem.rows[0], offers: [] };
+
+
+        return NextResponse.json(itemWithOffers);
     } catch (error) {
         console.error('Error adding item:', error);
         return NextResponse.json({ error: 'Failed to add item' }, { status: 500 });
@@ -39,7 +69,7 @@ export async function POST(request: Request) {
 export async function DELETE(request: Request) {
     const client = await db.connect();
     const { id } = await request.json();
-    
+
     try {
         await client.sql`
             DELETE FROM items WHERE id = ${id};
