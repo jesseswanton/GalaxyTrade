@@ -61,7 +61,7 @@ export default function LoginModal() {
         username: username,
         password: password,
         callbackUrl: "/",
-        redirect: false,
+        redirect: true,
       });
       console.log(response);
     } catch (error) {
