@@ -8,7 +8,7 @@ import {
   DrawerRoot,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Button } from "@chakra-ui/react";
+// import { Button } from "@chakra-ui/react";
 import LoginModal from "@/app/components/Modals/LoginModal";
 
 export default function Login() {
@@ -17,15 +17,14 @@ export default function Login() {
       <DrawerRoot size={"lg"}>
         <DrawerBackdrop />
         <DrawerTrigger asChild>
-          <Button variant="outline" size="sm">
+          <button>
             <div className="flex items-center">
               <HiMiniUserCircle
-                className="hover:cursor-pointer active:scale-90"
-                size={"2xl"} 
+                className="hover:cursor-pointer active:scale-90 size-16" 
               />
-              <p className="hidden md:block">Login/Signup</p>
+              <p className="hidden md:block hover:cursor-pointer hover:underline">Login/Signup</p>
             </div>
-          </Button>
+          </button>
         </DrawerTrigger>
         <DrawerContent>
           <DrawerBody p={5}>
