@@ -9,14 +9,17 @@ export const ItemCard = (props: Item) => {
       <Image
         src={props.image}
         alt={props.title}
+        boxSize="250px"
+        objectFit="cover"
+        width="100%"
       />
       <Card.Body gap="2" p={4}>
         <Card.Title>{props.title}</Card.Title>
-        <Card.Description>
+        <Card.Description textStyle="sm" color="gray.600">
           {props.description}
         </Card.Description>
-        <Text textStyle="2xl" fontWeight="medium" letterSpacing="tight" mt="2">
-          {props.condition}
+        <Text color="white" textStyle="2xl" fontWeight="medium" letterSpacing="tight" mt="2" bg="blackAlpha.800" p={2} borderRadius="md">
+          Condition: {props.condition}
         </Text>
       </Card.Body>
       <Card.Footer gap="2" p={4}>
