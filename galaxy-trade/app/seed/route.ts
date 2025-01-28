@@ -7,6 +7,11 @@ async function seedDatabase() {
     const client = await db.connect();
 
     await client.sql`
+        TRUNCATE TABLE offers RESTART IDENTITY CASCADE;
+        TRUNCATE TABLE items RESTART IDENTITY CASCADE;
+    `;
+
+    await client.sql`
         CREATE TABLE IF NOT EXISTS items (
             id SERIAL PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
