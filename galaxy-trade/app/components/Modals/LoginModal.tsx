@@ -5,18 +5,20 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { FormEvent, useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { Alert } from "@/components/ui/alert";
-import '../../styles/globals.css'
+import "../../styles/globals.css";
 
 export default function LoginModal() {
+  const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState("");
   const [logIn, setLogIn] = useState(true);
 
   useEffect(() => {
-    setAlert("")
-  },[logIn])
+    setAlert("");
+  }, [logIn]);
 
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData(e.currentTarget);
     const username = formData.get("username");
     const contact = formData.get("contact");
@@ -41,10 +43,12 @@ export default function LoginModal() {
         contact: contact,
       }),
     });
+    setLoading(false);
   };
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData(e.currentTarget);
     const username = formData.get("username");
     const password = formData.get("password");
@@ -66,6 +70,8 @@ export default function LoginModal() {
       console.log(response);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -83,7 +89,13 @@ export default function LoginModal() {
             <Card.Body h={"50%"} flex={0}>
               <Stack gap={3} mx={1}>
                 <h2>Username</h2>
-                <Input outline={"solid"} p={3} type="text" name="username" outlineWidth={1}/>
+                <Input
+                  outline={"solid"}
+                  p={3}
+                  type="text"
+                  name="username"
+                  outlineWidth={1}
+                />
                 <h2>Password</h2>
                 <PasswordInput
                   outline={"solid"}
@@ -98,16 +110,30 @@ export default function LoginModal() {
               <div className="text-lg">
                 Dont have an account yet?{" "}
                 <button
-                type="button"
-                className="login-toggle"
-                onClick={() => setLogIn(false)}
-                >Click here to sign up!</button>
+                  type="button"
+                  className="login-toggle"
+                  onClick={() => setLogIn(false)}
+                >
+                  Click here to sign up!
+                </button>
               </div>
-              <Button variant={"solid"} type="submit" my={3} p={3} size={"md"}>
+              <Button
+                variant={"solid"}
+                type="submit"
+                my={3}
+                p={3}
+                size={"md"}
+                loadingText={"Logging In"}
+                loading={loading}
+              >
                 Log In 🚀
               </Button>
             </Card.Footer>
-            {alert && <Alert w={"1/2"} size={"lg"}>{alert}</Alert>}
+            {alert && (
+              <Alert w={"1/2"} size={"lg"}>
+                {alert}
+              </Alert>
+            )}
           </Card.Root>
         </form>
       ) : (
@@ -122,7 +148,13 @@ export default function LoginModal() {
             <Card.Body h={"50%"} flex={0}>
               <Stack gap={3} mx={1}>
                 <h2>Username</h2>
-                <Input outline={"solid"} p={3} type="text" name="username" outlineWidth={1}/>
+                <Input
+                  outline={"solid"}
+                  p={3}
+                  type="text"
+                  name="username"
+                  outlineWidth={1}
+                />
                 <h2>Password</h2>
                 <PasswordInput
                   outline={"solid"}
@@ -132,25 +164,51 @@ export default function LoginModal() {
                   name="password"
                 />
                 <h2>Confirm password</h2>
-                <PasswordInput outline={"solid"} p={3} type="text" name="password-confirm" outlineWidth={1}/>
+                <PasswordInput
+                  outline={"solid"}
+                  p={3}
+                  type="text"
+                  name="password-confirm"
+                  outlineWidth={1}
+                />
                 <h2>Contact Info</h2>
-                <Input outline={"solid"} p={3} type="text" name="contact" outlineWidth={1}/>
+                <Input
+                  outline={"solid"}
+                  p={3}
+                  type="text"
+                  name="contact"
+                  outlineWidth={1}
+                />
               </Stack>
             </Card.Body>
             <Card.Footer justifyContent={"space-between"} mx={1}>
               <div className="text-lg">
                 Have an account?{" "}
                 <button
-                type="button"
-                className="login-toggle"
-                onClick={() => setLogIn(true)}
-                >Click here to Log in!</button>
+                  type="button"
+                  className="login-toggle"
+                  onClick={() => setLogIn(true)}
+                >
+                  Click here to Log in!
+                </button>
               </div>
-              <Button variant={"solid"} type="submit" my={3} p={3} size={"md"}>
+              <Button
+                variant={"solid"}
+                type="submit"
+                my={3}
+                p={3}
+                size={"md"}
+                loadingText={"Signing Up"}
+                loading={loading}
+              >
                 Sign up 🚀
               </Button>
             </Card.Footer>
-            {alert && <Alert w={"1/2"} size={"lg"}>{alert}</Alert>}
+            {alert && (
+              <Alert w={"1/2"} size={"lg"}>
+                {alert}
+              </Alert>
+            )}
           </Card.Root>
         </form>
       )}
