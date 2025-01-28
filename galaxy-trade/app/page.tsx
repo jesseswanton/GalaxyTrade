@@ -5,9 +5,6 @@ import { FetchItems } from './api/items/fetchItems';
 import { AddItem, DeleteItem } from './api/items/addItem';
 
 const Home: FC = () => {
-  // logOffers();
-  // testAddItem();
-  // testDeleteItem();
   return (
     <div>
       <h1>Welcome to GalaxyTrade 🌌</h1>
