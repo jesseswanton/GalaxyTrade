@@ -1,4 +1,8 @@
 /* app/styles/globals.css */
+/* @import "@chakra-ui/react/dist/theme.min.css"; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Global reset */
 * {
@@ -10,10 +14,11 @@
 /* Basic styling for Navbar */
 .navbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #2b6cb0; /* Teal blue color */
+  background-color: #181818;
   color: white;
 }
 
@@ -34,7 +39,7 @@
 
 /* Basic styling for Footer */
 .footer {
-  background-color: #1a202c; /* Dark gray background */
+  background-color: #181818;
   color: white;
   padding: 2rem 0;
   text-align: center;
@@ -65,4 +70,14 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.login-toggle:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.links {
+  display: flex;
+
 }
