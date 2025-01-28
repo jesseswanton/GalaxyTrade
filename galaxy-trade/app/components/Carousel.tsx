@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Box, Text, Flex, Spacer } from '@chakra-ui/react';
+import { Box, Text, Flex } from '@chakra-ui/react';
 import NextImage from 'next/image';
 import { fetchNasaData } from '../api/fetchNasaData';
 import {
@@ -10,7 +10,6 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  PopoverCloseTrigger,
 } from '../../components/ui/popover';
 import { Button } from '../../components/ui/button';
 
@@ -25,6 +24,7 @@ const Carousel = () => {
   const [images, setImages] = useState<NasaImage[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isImageClicked, setIsImageClicked] = useState(false);
+  const [isExplanationVisible, setIsExplanationVisible] = useState(false);
 
   // Fetch NASA images
   useEffect(() => {
@@ -33,7 +33,7 @@ const Carousel = () => {
         const randomImages = await fetchNasaData();
         setImages(randomImages);
       } catch (error) {
-        console.error("Error fetching NASA images:", error);
+        console.error('Error fetching NASA images:', error);
       }
     };
 
@@ -60,11 +60,15 @@ const Carousel = () => {
   };
 
   const handlePrevImage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1) % images.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
   const handleImageClick = () => {
     setIsImageClicked(!isImageClicked);
+  };
+
+  const toggleExplanation = () => {
+    setIsExplanationVisible(!isExplanationVisible);
   };
 
   return (
@@ -77,7 +81,7 @@ const Carousel = () => {
             width={isImageClicked ? '400px' : '100px'}
             height={isImageClicked ? '400px' : '100px'}
             overflow="hidden"
-            borderRadius={isImageClicked ? "100%" : "50%"}
+            borderRadius={isImageClicked ? '100%' : '50%'}
             marginRight="20px"
             flexShrink={0}
             cursor="pointer"
@@ -94,34 +98,41 @@ const Carousel = () => {
           </Box>
         </PopoverTrigger>
 
-        <PopoverContent p={4} borderRadius="md" boxShadow="lg" portalled>
-          <PopoverCloseTrigger />
-
-          <PopoverHeader>
-            <Text fontWeight="bold">{currentImage.title}</Text>
+        <PopoverContent p={4} borderRadius="md" boxShadow="lg" width="700px" portalled>
+          <PopoverHeader textAlign="center">
+            <Text p={2} fontWeight="bold">{currentImage.title}</Text>
           </PopoverHeader>
-
           <PopoverBody>
-            <Text>{currentImage.explanation}</Text>
+            <Flex p={2}  direction="row" gap={2} justify="space-between">
+              <Button
+                onClick={handlePrevImage}
+                colorScheme="black"
+                size="sm"
+                flex="1"
+              >
+                Previous
+              </Button>
 
-            <Button
-              onClick={handlePrevImage}
-              colorScheme="black"
-              size="sm"
-            >
-              Previous
-            </Button>
+              <Button
+                onClick={toggleExplanation}
+                colorScheme="black"
+                size="sm"
+                flex="1"
+              >
+                Image Details
+              </Button>
 
-            <Spacer />
+              <Button
+                onClick={handleNextImage}
+                colorScheme="black"
+                size="sm"
+                flex="1"
+              >
+                Next
+              </Button>
+            </Flex>
 
-            <Button
-              onClick={handleNextImage}
-              colorScheme="black"
-              size="sm"
-            >
-              Next
-            </Button>
-
+            {isExplanationVisible && <Text p={2}>{currentImage.explanation}</Text>}
           </PopoverBody>
         </PopoverContent>
       </PopoverRoot>

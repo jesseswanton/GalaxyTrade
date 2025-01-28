@@ -1,11 +1,14 @@
 'use client'
-// Navigation bar component
+
 import Link from 'next/link';
 import Carousel from './Carousel';
-import { Spacer } from '@chakra-ui/react';
+// import { Spacer } from '@chakra-ui/react';
 import Login from './login'
 import Logout from './logout'
 // import { getProfilePic } from '../lib/actions';
+
+import UploadImage from './UploadImage';
+import DisplayImage from './DisplayImage';
 
 export default function Navbar({ isLoggedIn, username }: { isLoggedIn: boolean, username: string }) { 
   // const getUsersPic = async (username: string) => {
@@ -15,12 +18,14 @@ export default function Navbar({ isLoggedIn, username }: { isLoggedIn: boolean, 
   
   return (
     <nav className="navbar">
-      <div className="logo">
-        <h1>GalaxyTrade 🌌</h1>
+      <div className="flex items-center">
+        <UploadImage />
+        <DisplayImage />
       </div>
-      <Spacer />
-      <Carousel />
-      <Spacer />
+      <div className="carousel-container">
+        <Carousel />
+        <h1 className="carousel-title">GalaxyTrade</h1>
+      </div>
       <div className="links flex items-center">
         <Link href="/">Home</Link>
         {isLoggedIn ? (
