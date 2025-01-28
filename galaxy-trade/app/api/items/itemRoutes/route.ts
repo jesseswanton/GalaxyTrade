@@ -82,3 +82,24 @@ export async function DELETE(request: Request) {
         client.release();
     }
 }
+
+export async function PUT(request: Request) {
+    const client = await db.connect();
+    const { id, title, description, condition, image, owner, tradable } = await request.json();
+
+    try {
+        const updatedItem = await client.sql`
+            UPDATE items
+            SET title = ${title}, description = ${description}, condition = ${condition}, image = ${image}, owner = ${owner}, tradable = ${tradable}
+            WHERE id = ${id}
+            RETURNING *;
+        `;
+
+        return NextResponse.json(updatedItem.rows[0]);
+    } catch (error) {
+        console.error('Error updating item:', error);
+        return NextResponse.json({ error: 'Failed to update item' }, { status: 500 });
+    } finally {
+        client.release();
+    }
+}

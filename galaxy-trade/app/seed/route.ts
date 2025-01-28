@@ -1,10 +1,10 @@
 import { db } from '@vercel/postgres'
 import { seedItems } from './placeholder-data'
 
-const client = await db.connect()
 
 async function seedDatabase() {
     // await client.sql`CREATE EXTENSION IF NOT EXISTS items`;
+    const client = await db.connect();
 
     await client.sql`
         CREATE TABLE IF NOT EXISTS items (
@@ -14,7 +14,7 @@ async function seedDatabase() {
             condition VARCHAR(50),
             image VARCHAR(255),
             owner VARCHAR(255) NOT NULL,
-            tradable BOOLEAN DEFAULT TRUE
+            tradable BOOLEAN DEFAULT TRUE,
             offers JSONB DEFAULT '[]'::jsonb
         );
     `;
@@ -26,7 +26,6 @@ async function seedDatabase() {
         offerer VARCHAR(255) NOT NULL,
         offeredItemId INTEGER,
         status VARCHAR(20) CHECK (status IN ('pending', 'accepted', 'rejected')) NOT NULL
-        FOREIGN KEY (item_id) REFERENCES items(id)
         )
     `;
 
@@ -61,12 +60,18 @@ async function seedDatabase() {
 }
 
 export async function GET() {
+    const client = await db.connect();
     try {
         await client.sql`BEGIN`;
         await seedDatabase();
         await client.sql`COMMIT`;
 
-        return Response.json({ message: 'Seeded ideas successfully' });
+        // return Response.json({ message: 'Seeded ideas successfully' });
+        return new Response(JSON.stringify({ message: "Seeded items successfully" }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+        });
+        
     } catch (error) {
         await client.sql`ROLLBACK`;
         return Response.json({ error }, { status: 500 });

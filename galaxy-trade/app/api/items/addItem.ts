@@ -49,4 +49,29 @@ export async function DeleteItem(id: number): Promise<void> {
     }
 }
 
+export async function UpdateItem(Item: Item): Promise<void> {
+    try {
+        const response = await fetch('http://localhost:3000/api/items/itemRoutes', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(Item),
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const updatedItem = await response.json();
+        console.log('Item updated:', updatedItem);
+
+        return updatedItem;
+
+    } catch (error) {
+        console.error('Error updating item:', error);
+        throw error;
+    }
+}
+
 
