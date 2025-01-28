@@ -91,17 +91,19 @@ body {
 
 .carousel-title {
   position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2; /* Ensures the text appears above the carousel */
-  font-size: 2rem; /* Adjust the font size as needed */
+  top: 15px;
+  right: 50%;
+  transform: translateY(50%);
+  transform: translateX(45%);
+  z-index: 2;
+  font-size: 2rem;
   font-weight: bold;
-  color: white; /* Adjust color for better contrast with the image */
-  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8); /* Adds a shadow for better readability */
+  color: white;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
+  text-align: center;
 }
 
 .carousel-container .carousel {
   position: relative;
-  z-index: 1; /* Ensures the carousel is behind the text */
+  z-index: 1;
 }

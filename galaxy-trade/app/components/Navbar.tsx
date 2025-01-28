@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link';
+// import Link from 'next/link';
 import Carousel from './Carousel';
 // import { Spacer } from '@chakra-ui/react';
 import Login from './login'
@@ -19,7 +19,7 @@ export default function Navbar({ isLoggedIn, username }: { isLoggedIn: boolean, 
   return (
     <nav className="navbar">
       <div className="flex items-center">
-        <UploadImage />
+        <UploadImage /> 
         <DisplayImage />
       </div>
       <div className="carousel-container">
@@ -27,7 +27,7 @@ export default function Navbar({ isLoggedIn, username }: { isLoggedIn: boolean, 
         <h1 className="carousel-title">GalaxyTrade</h1>
       </div>
       <div className="links flex items-center">
-        <Link href="/">Home</Link>
+        {/* <Link href="/">Home</Link> */}
         {isLoggedIn ? (
           <Logout username={username}/>
         ) : (

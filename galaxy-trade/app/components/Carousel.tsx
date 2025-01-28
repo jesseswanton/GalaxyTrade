@@ -74,7 +74,7 @@ const Carousel = () => {
   return (
     <Flex align="center">
       {/* Circular Image with Popover */}
-      <PopoverRoot>
+      <PopoverRoot open={isImageClicked}>
         <PopoverTrigger>
           <Box
             position="relative"
@@ -94,16 +94,17 @@ const Carousel = () => {
               layout="fill"
               objectFit="cover"
               priority
+              onError={handleNextImage}
             />
           </Box>
         </PopoverTrigger>
 
-        <PopoverContent p={4} borderRadius="md" boxShadow="lg" width="700px" portalled>
+        <PopoverContent p={4} borderRadius="md" boxShadow="lg" maxWidth={{ base: '400px', md: '700px' }} width="auto" minWidth="400px" portalled>
           <PopoverHeader textAlign="center">
             <Text p={2} fontWeight="bold">{currentImage.title}</Text>
           </PopoverHeader>
-          <PopoverBody>
-            <Flex p={2}  direction="row" gap={2} justify="space-between">
+
+          <Flex p={2} direction={{ base: 'column-reverse', md: 'row' }} gap={2} justify="space-between">
               <Button
                 onClick={handlePrevImage}
                 colorScheme="black"
@@ -132,9 +133,11 @@ const Carousel = () => {
               </Button>
             </Flex>
 
-            {isExplanationVisible && <Text p={2}>{currentImage.explanation}</Text>}
+          <PopoverBody overflow="auto">
+            {isExplanationVisible && <Text p={2} m={2}>{currentImage.explanation}</Text>}
           </PopoverBody>
         </PopoverContent>
+
       </PopoverRoot>
     </Flex>
   );
