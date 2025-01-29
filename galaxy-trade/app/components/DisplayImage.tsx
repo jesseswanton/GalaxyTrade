@@ -1,20 +1,23 @@
 'use client';
 
 import { CldImage } from 'next-cloudinary';
+import { useImageContext } from '../context/ImageContext';
 
 const DisplayImage = () => {
-    return (
-        <CldImage
-            src="samples/logo" // Use this sample image or upload your own via the Media Explorer
-            width="50" // Transform the image: auto-crop to square aspect_ratio
-            height="50"
-            alt="image"
-            crop={{
-            type: 'auto',
-            source: true
-            }}
-        />
-    );
+  const { imageSrc } = useImageContext();
+
+  return (
+    <CldImage
+        src={imageSrc}
+        width="50"
+        height="50"
+        alt="Uploaded image"
+        crop={{
+          type: 'auto',
+          source: true
+        }}
+    />
+  );
 };
 
 export default DisplayImage;

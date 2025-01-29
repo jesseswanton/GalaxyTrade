@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Head from 'next/head';
 import { Provider } from '@/components/ui/provider';
 import { getServerSession } from "next-auth";
+import { ImageProvider } from './context/ImageContext';
 
 export default async function RootLayout({
   children,
@@ -11,15 +12,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession();
-  console.log({ session});
+  console.log({ session });
   const user = session?.user;
-  let isLoggedIn = false;
-
-  if (session) {
-    isLoggedIn = true;
-  } else {
-    isLoggedIn = false;
-  }
+  const isLoggedIn = Boolean(session);
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -30,13 +25,15 @@ export default async function RootLayout({
       </Head>
       <body>
         <Provider>
-          <header>
-            <Navbar username={user?.name || ""} isLoggedIn={isLoggedIn}/>
-          </header>
+          <ImageProvider>
+            <header>
+              <Navbar username={user?.name || ""} isLoggedIn={isLoggedIn} />
+            </header>
             <main>{children}</main>
-          <Footer />
+            <Footer />
+          </ImageProvider>
         </Provider>
       </body>
     </html>
   );
-};
+}
