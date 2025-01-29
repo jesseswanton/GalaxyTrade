@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { Provider } from '@/components/ui/provider';
 import { getServerSession } from "next-auth";
 import { ImageProvider } from './context/ImageContext';
+import ClientSessionProvider from './components/ClientSessionProvider';
 
 export default async function RootLayout({
   children,
@@ -25,13 +26,15 @@ export default async function RootLayout({
       </Head>
       <body>
         <Provider>
-          <ImageProvider>
-            <header>
-              <Navbar username={user?.name || ""} isLoggedIn={isLoggedIn} />
-            </header>
-            <main>{children}</main>
-            <Footer />
-          </ImageProvider>
+          <ClientSessionProvider session={session}>
+            <ImageProvider>
+              <header>
+                <Navbar username={user?.name || ""} isLoggedIn={isLoggedIn} />
+              </header>
+              <main>{children}</main>
+              <Footer />
+            </ImageProvider>
+          </ClientSessionProvider>
         </Provider>
       </body>
     </html>

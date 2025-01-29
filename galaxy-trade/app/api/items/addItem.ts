@@ -1,9 +1,11 @@
 // Adding items to inventory
 import { Item } from '../../types/items';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export async function AddItem(Item: Omit<Item, 'id' | 'offers'>): Promise<void> {
     try {
-        const response = await fetch('http://localhost:3000/api/items/itemRoutes', {
+        const response = await fetch(`${API_BASE_URL}/api/items/itemRoutes`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,7 +30,7 @@ export async function AddItem(Item: Omit<Item, 'id' | 'offers'>): Promise<void> 
 
 export async function DeleteItem(id: number): Promise<void> {
     try {
-        const response = await fetch('http://localhost:3000/api/items/itemRoutes', {
+        const response = await fetch(`${API_BASE_URL}/api/items/itemRoutes`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -51,7 +53,7 @@ export async function DeleteItem(id: number): Promise<void> {
 
 export async function UpdateItem(Item: Item): Promise<void> {
     try {
-        const response = await fetch('http://localhost:3000/api/items/itemRoutes', {
+        const response = await fetch(`${API_BASE_URL}/api/items/itemRoutes`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

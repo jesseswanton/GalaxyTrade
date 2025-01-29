@@ -1,9 +1,11 @@
 // Fetching items from an API
 import { Item } from '../../types/items';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export async function FetchItems(): Promise<Item[]> {
     try {
-      const response = await fetch('http://localhost:3000/api/items/itemRoutes', {
+      const response = await fetch(`${API_BASE_URL}/api/items/itemRoutes`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
