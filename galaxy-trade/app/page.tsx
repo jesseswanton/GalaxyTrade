@@ -23,8 +23,16 @@ const HomePage: FC =  () => {
   }, []);
 
   return (
+    <Box
+    bgImage="url('/galaxy-swirl.jpg')"
+    bgSize="cover"
+    position="center"
+    bgRepeat="no-repeat"
+    minHeight="100vh"
+    >
+
     <Box maxW="1200px" mx="auto" p={6}>
-      <Box textAlign="center" mb={6} bg="blackAlpha.200" p={4} borderRadius="md">
+      <Box textAlign="center" mb={6} color="white" p={4} borderRadius="md">
         <Heading as="h1" size="xl">
           Welcome to GalaxyTrade 🌌
         </Heading>
@@ -32,7 +40,6 @@ const HomePage: FC =  () => {
           Items available for trade.
         </Text>
       </Box>
-
       <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={6}>
       {loading
             ? // Show skeletons if loading
@@ -51,6 +58,7 @@ const HomePage: FC =  () => {
               ))}
       </SimpleGrid>
     </Box>
+  </Box>
   );
 };
 
