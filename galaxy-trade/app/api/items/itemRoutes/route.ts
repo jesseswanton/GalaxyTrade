@@ -1,43 +1,6 @@
 import { db } from '@vercel/postgres'
 import { NextResponse } from 'next/server';
 
-import { NextApiRequest, NextApiResponse } from 'next';
-import Cors from 'cors';
-
-// Initialize CORS middleware
-const cors = Cors({
-  origin: '*', // Change to 'https://galaxy-trade.vercel.app' if you want to restrict access
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-});
-
-// Helper function to run middleware in Next.js
-function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: (req: NextApiRequest, res: NextApiResponse, callback: (result: unknown) => void) => void): Promise<void> {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result: unknown) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-      return resolve();
-    });
-  });
-}
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    await runMiddleware(req, res, cors);
-
-    if (req.method === 'GET') {
-      return res.status(200).json({ message: 'CORS enabled!' });
-    }
-
-    return res.status(405).json({ message: 'Method not allowed' });
-  } catch (error) {
-    return res.status(500).json({ message: 'Internal Server Error', error: (error as Error).message });
-  }
-}
-
-
-
 export async function GET() {
     const client = await db.connect();
 
