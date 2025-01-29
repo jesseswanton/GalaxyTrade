@@ -16,10 +16,21 @@ return items;
 const HomePage: FC =  () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     getItems().then(setItems);
     setLoading(false);
+
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
@@ -28,6 +39,7 @@ const HomePage: FC =  () => {
     bgSize="cover"
     position="center"
     bgRepeat="no-repeat"
+    style={{ backgroundPosition: `center ${scrollY * 0.5}px` }}
     minHeight="100vh"
     >
 
