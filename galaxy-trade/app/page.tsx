@@ -17,15 +17,35 @@ return items;
 const HomePage: FC =  () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     getItems().then(setItems);
     setLoading(false);
+
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
+    <Box
+    bgImage="url('/galaxy-swirl.jpg')"
+    bgSize="cover"
+    position="center"
+    bgRepeat="no-repeat"
+    style={{ backgroundPosition: `center ${scrollY * 0.5}px` }}
+    minHeight="100vh"
+    >
+
     <Box maxW="1200px" mx="auto" p={6}>
-      <Box textAlign="center" mb={6} bg="blackAlpha.200" p={4} borderRadius="md">
+      <Box textAlign="center" mb={6} color="white" p={4} borderRadius="md">
         <Heading as="h1" size="xl">
           Welcome to GalaxyTrade 🌌
         </Heading>
@@ -52,6 +72,7 @@ const HomePage: FC =  () => {
               ))}
       </SimpleGrid>
     </Box>
+  </Box>
   );
 };
 
