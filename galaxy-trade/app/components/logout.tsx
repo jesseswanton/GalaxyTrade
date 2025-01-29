@@ -9,17 +9,18 @@ import {
   DrawerCloseTrigger,
   DrawerContent,
   DrawerFooter,
-  DrawerHeader,
+  // DrawerHeader,
   DrawerRoot,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useEffect, useState } from "react";
+import Inventory from "./InventoryPanel";
 // import EditPP from "../ui/editPP";
 
 export default function Logout({ username }: { username: string }) {
 
-  const placeholderPic =   "https://fastly.picsum.photos/id/28/200/200.jpg?hmac=eT-kjSvX_wh2uU3SYgAuRWjzo4ndNGimCCiNEaWlnOg";
+  const placeholderPic =   "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
 
 
   const [picUrl, setPicUrl] = useState("");
@@ -48,32 +49,36 @@ export default function Logout({ username }: { username: string }) {
   return (
     <div className="flex items-center">
       <p className="mx-2">{`Hello! ${username}`}</p>
-      <DrawerRoot>
+      <DrawerRoot size={"md"}>
         <DrawerBackdrop />
         <DrawerTrigger asChild>
           <Avatar size="2xl" name={username} src={userPic || placeholderPic} />
         </DrawerTrigger>
         <DrawerContent>
-          <DrawerCloseTrigger />
-          <DrawerHeader>
-            <DrawerTitle m={3}>{`${username}'s Profile`}</DrawerTitle>
-          </DrawerHeader>
+          <DrawerCloseTrigger zIndex={100} />
+          {/* <DrawerHeader> */}
+          {/* </DrawerHeader> */}
           <DrawerBody>
-            <Avatar
-              className="relative overflow-hidden"
-              h={56}
-              w={56}
-              m={3}
-              src={userPic || placeholderPic}
-            ></Avatar>
-            <Input
-              name="new-proflie-pic"
-              className="w-4/5 m-3 p-3"
-              onChange={(e) => setPicUrl(e.currentTarget.value)}
-            />
-            <Button className="p-3" m={3} onClick={() => updatePP()}>
-              Submit
-            </Button>
+            <div className="edit-sectionm">
+              <DrawerTitle className="sticky top-0 z-10 w-full h-fit p-3 drop-shadow-md">{`${username}'s Profile`}</DrawerTitle>
+              <Avatar
+                className="relative overflow-hidden"
+                h={56}
+                w={56}
+                m={3}
+                src={userPic || placeholderPic}
+              ></Avatar>
+              <Input
+                name="new-proflie-pic"
+                className="w-4/5 m-3 p-3"
+                onChange={(e) => setPicUrl(e.currentTarget.value)}
+              />
+              <Button className="p-3" m={3} onClick={() => updatePP()}>
+                Submit
+              </Button>
+            </div>
+            <DrawerTitle className="sticky top-0 z-10 w-full h-fit p-3 drop-shadow-md">Inventory</DrawerTitle>
+            <Inventory username={username}/>
           </DrawerBody>
           <DrawerFooter />
           <Button className="m-3 p-2" onClick={() => signOut()}>

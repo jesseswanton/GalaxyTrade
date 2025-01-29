@@ -50,7 +50,7 @@ export default function Inventory({ username }: { username: string }) {
                 <Card.Description>{item.description}</Card.Description>
               </Card.Body>
               <Card.Footer>
-                <Button p={3} variant={"solid"}>
+                <Button px={2} variant={"solid"}>
                   Mark Available
                 </Button>
               </Card.Footer>
