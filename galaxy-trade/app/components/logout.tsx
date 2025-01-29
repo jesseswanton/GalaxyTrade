@@ -2,7 +2,9 @@ import { signOut } from "next-auth/react";
 // import Link from "next/link";
 import { updateUserPic, getProfilePic } from "../lib/actions";
 import { Avatar } from "@/components/ui/avatar";
-import { Button, Input } from "@chakra-ui/react";
+import { Button,
+  //  Input 
+  } from "@chakra-ui/react";
 import {
   DrawerBackdrop,
   DrawerBody,
@@ -17,16 +19,17 @@ import {
 import { useEffect, useState } from "react";
 import Inventory from "./InventoryPanel";
 // import EditPP from "../ui/editPP";
+import UploadImage from './UploadImage';
 
 export default function Logout({ username }: { username: string }) {
 
   const placeholderPic =   "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
 
 
-  const [picUrl, setPicUrl] = useState("");
+  // const [picUrl, setPicUrl] = useState("");
   const [userPic, setUserPic] = useState("")
 
-  console.log(picUrl);
+  // console.log(picUrl);
 
   useEffect(() => {
     async function fetchProfilePic(username: string) {
@@ -36,15 +39,26 @@ export default function Logout({ username }: { username: string }) {
       }
     }
     fetchProfilePic(username)
-  },[userPic, username])
+  },[
+    // userPic, 
+    username])
 
-  const updatePP = async() => {
+  // const updatePP = async() => {
+  //   try {
+  //     await updateUserPic(username, picUrl)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
+  const handleImageUpload = async (publicId: string) => {
     try {
-      await updateUserPic(username, picUrl)
+      await updateUserPic(username, publicId);
+      setUserPic(publicId);
     } catch (error) {
-      console.error(error)
+      console.error("Failed to update profile picture:", error);
     }
-  }
+  };
 
   return (
     <div className="flex items-center">
@@ -68,14 +82,18 @@ export default function Logout({ username }: { username: string }) {
                 m={3}
                 src={userPic || placeholderPic}
               ></Avatar>
-              <Input
+
+              {/* <Input
                 name="new-proflie-pic"
                 className="w-4/5 m-3 p-3"
                 onChange={(e) => setPicUrl(e.currentTarget.value)}
               />
               <Button className="p-3" m={3} onClick={() => updatePP()}>
                 Submit
-              </Button>
+              </Button> */}
+
+              <UploadImage onUploadSuccess={handleImageUpload} />
+
             </div>
             <DrawerTitle className="sticky top-0 z-10 w-full h-fit p-3 drop-shadow-md">Inventory</DrawerTitle>
             <Inventory username={username}/>
