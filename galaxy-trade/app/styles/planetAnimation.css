@@ -2,8 +2,8 @@
     position: absolute;
     top: -150px;
     left: -360px;
-    animation: movePlanet 4s linear;
-    z-index: -10;
+    animation: movePlanet 40s linear infinite;
+    z-index: 0;
   }
   
   @keyframes movePlanet {
@@ -11,7 +11,7 @@
         top: -150px;
         left: -360px;
         transform: scale(0.15);
-        opacity: .25;
+        opacity: .95;
     }
     20% {
         opacity: 1;

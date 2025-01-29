@@ -5,10 +5,10 @@
 
 import { Button } from "@chakra-ui/react";
 import { CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary';
-import { useImageContext } from '../context/ImageContext';
+// import { useImageContext } from '../context/ImageContext';
 
-const UploadImage = () => {
-  const { setImageSrc } = useImageContext();
+const UploadImage = ({ onUploadSuccess }: { onUploadSuccess: (publicId: string) => void }) => {
+//   const { setImageSrc } = useImageContext();
 
   return (
     <CldUploadWidget
@@ -19,11 +19,12 @@ const UploadImage = () => {
         // What to do with the upload results
         onSuccess={(results: CloudinaryUploadWidgetResults) => {
             if (typeof results.info === 'object' && results.info?.public_id) {
-                console.log('Public ID:', results.info.public_id);
+                // console.log('Public ID:', results.info.public_id);
+                onUploadSuccess(results.info.public_id);
                 // Update context with the new image source
-                setImageSrc(results.info.public_id); 
+                // setImageSrc(results.info.public_id); 
             } else {
-              console.error('Public ID not found or info is invalid.');
+              console.error("Invalid upload results:", results);
             }
         }}
     >
