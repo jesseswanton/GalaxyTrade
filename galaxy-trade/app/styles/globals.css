@@ -82,6 +82,14 @@ body {
 
 }
 
+.inventory-stack * {
+  display: block;
+}
+
+.inventory-card > * {
+  margin: 3 0 3 0;
+}
+
 .carousel-container {
   position: relative;
   display: flex;
