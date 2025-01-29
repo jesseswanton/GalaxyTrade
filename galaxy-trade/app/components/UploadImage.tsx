@@ -15,7 +15,9 @@ const UploadImage = ({ onUploadSuccess }: { onUploadSuccess: (publicId: string) 
         // Cloudinary upload preset
         uploadPreset="ml_default"
         // What options show up in the widget
-        options={{ sources: ['local', 'url', 'camera', 'google_drive', 'dropbox'] }}
+        options={{ sources: ['local', 'url', 'camera', 'google_drive', 'dropbox'],
+            styles: { container: "cloudinary-widget" },
+         }}
         // What to do with the upload results
         onSuccess={(results: CloudinaryUploadWidgetResults) => {
             if (typeof results.info === 'object' && results.info?.public_id) {
