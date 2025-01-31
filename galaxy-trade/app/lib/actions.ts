@@ -4,7 +4,7 @@
 import { sql } from '@vercel/postgres';
 import bcrypt from 'bcrypt'
 import { User } from './definitions';
-import { Item } from '../types/items';
+import { Item, Offer } from '../types/items';
 
   
 export async function addUser(username:string, password: string, contact: string) {
@@ -53,5 +53,20 @@ export async function getUserItems(username: string): Promise<Item[]> {
     } catch (error) {
         console.error(error)
         return [];
+    }
+}
+
+export async function addItemOffer(itemId: number, offerer: string, offeredItemId: number): Promise<Offer | null> {
+    try {
+        const result = await sql<Offer>`
+            INSERT INTO offers (item_id, offerer, offeredItemId, status)
+            VALUES (${itemId}, ${offerer}, ${offeredItemId}, 'pending')
+            RETURNING *;
+        `;
+
+        return result.rows[0]
+    } catch (error) {
+        console.error("Error adding offer:", error);
+        return null;
     }
 }

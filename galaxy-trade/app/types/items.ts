@@ -10,7 +10,7 @@ export interface Item {
     offers: Offer[]
 }
 
-interface Offer {
+export interface Offer {
     id: number
     itemId: number
     offerer: string
