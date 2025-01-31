@@ -26,3 +26,26 @@ export async function FetchItems(): Promise<Item[]> {
         return [];
       }
   }
+
+
+export async function FetchItemById(id: number): Promise<Item | null> {
+  try { 
+    const response = await fetch(`${API_BASE_URL}/api/items/itemRoutes${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching items:', error);
+    return null;
+  }
+}

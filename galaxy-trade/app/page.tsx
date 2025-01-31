@@ -7,6 +7,7 @@ import { Box, SimpleGrid, Skeleton, Heading, Text } from '@chakra-ui/react';
 import { ItemCard } from './components/ItemCard';
 import { FetchItems } from './api/items/fetchItems';
 import { Item } from './types/items';
+import AnimatedPlanet from './components/AnimatedPlanet';
 
 async function getItems() {
 const items = await FetchItems();
@@ -16,10 +17,21 @@ return items;
 const HomePage: FC =  () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     getItems().then(setItems);
     setLoading(false);
+
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
@@ -28,6 +40,7 @@ const HomePage: FC =  () => {
     bgSize="cover"
     position="center"
     bgRepeat="no-repeat"
+    style={{ backgroundPosition: `center ${scrollY * 0.5}px` }}
     minHeight="100vh"
     >
 
@@ -40,6 +53,7 @@ const HomePage: FC =  () => {
           Items available for trade.
         </Text>
       </Box>
+      <AnimatedPlanet />
       <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={6}>
       {loading
             ? // Show skeletons if loading

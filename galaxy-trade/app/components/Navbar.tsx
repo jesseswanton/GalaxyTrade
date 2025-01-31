@@ -7,9 +7,6 @@ import Login from './login'
 import Logout from './logout'
 // import { getProfilePic } from '../lib/actions';
 
-import UploadImage from './UploadImage';
-import DisplayImage from './DisplayImage';
-
 export default function Navbar({ isLoggedIn, username }: { isLoggedIn: boolean, username: string }) { 
   // const getUsersPic = async (username: string) => {
   //   const profilePic = await getProfilePic(username)
@@ -17,16 +14,13 @@ export default function Navbar({ isLoggedIn, username }: { isLoggedIn: boolean, 
   // }
   
   return (
-    <nav className="navbar">
-      <div className="flex items-center">
-        <UploadImage /> 
-        <DisplayImage />
-      </div>
-      <div className="carousel-container">
+    <nav className="navbar flex items-center justify-between px-4 py-2 bg-gray-900 text-white">
+      <div className="flex-grow" />
+      <div className="carousel-container flex flex-col items-center justify-center">
         <Carousel />
-        <h1 className="carousel-title">GalaxyTrade</h1>
+        <h1 className="carousel-title text-xl font-bold mt-2">GalaxyTrade</h1>
       </div>
-      <div className="links flex items-center">
+      <div className="links flex-grow flex items-center justify-end">
         {/* <Link href="/">Home</Link> */}
         {isLoggedIn ? (
           <Logout username={username}/>
