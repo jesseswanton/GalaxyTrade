@@ -21,6 +21,7 @@ export default function Offers({ username }: { username: string }) {
       }
     };
     fetchOffers();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

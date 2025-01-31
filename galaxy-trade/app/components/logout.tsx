@@ -53,7 +53,7 @@ export default function Logout({ username }: { username: string }) {
       <DrawerRoot size={"md"}>
         <DrawerBackdrop />
         <DrawerTrigger asChild>
-          <Avatar size="2xl" name={username} src={userPic || placeholderPic} />
+          <Avatar className="hover:cursor-pointer" size="2xl" name={username} src={userPic || placeholderPic} />
         </DrawerTrigger>
         <DrawerContent>
           <DrawerCloseTrigger zIndex={100} />

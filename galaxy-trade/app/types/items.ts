@@ -10,8 +10,11 @@ export interface Item {
     offers: Offer[]
 }
 
-export interface Offer extends Item {
+export interface Offer {
     id: number
+    title: string
+    image: string
+    description: string
     itemId: number
     offerer: string
     offeredItemId: number
