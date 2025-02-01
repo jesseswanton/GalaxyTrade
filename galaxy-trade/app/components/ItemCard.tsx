@@ -2,8 +2,13 @@
 import { Button, Card, Image, Text, Box } from "@chakra-ui/react"
 import { Item } from '../types/items'
 
+interface ItemCardProps {
+  item: Item; // The individual item data
+  onMakeOfferClick: (item: Item) => void; // The function to handle offer click
+}
 
-export const ItemCard = (props: Item) => {
+
+export const ItemCard = ({item, onMakeOfferClick}: ItemCardProps) => {
   return (
     <Box
       maxW="sm"
@@ -20,8 +25,8 @@ export const ItemCard = (props: Item) => {
     >
       <Card.Root maxW="sm" overflow="hidden" bg="gray.400" borderRadius="md" boxShadow="md">
         <Image
-          src={props.image}
-          alt={props.title}
+          src={item.image}
+          alt={item.title}
           boxSize="250px"
           objectFit="cover"
           width="100%"
@@ -37,9 +42,9 @@ export const ItemCard = (props: Item) => {
           minHeight="5vh"
         >
           <Card.Body gap="2" p={4}>
-            <Card.Title textStyle="2x1" color="white">{props.title}</Card.Title>
+            <Card.Title textStyle="2x1" color="white">{item.title}</Card.Title>
             <Card.Description textStyle="sm" color="white" bg="blackAlpha.800" borderRadius="md">
-              {props.description}
+              {item.description}
             </Card.Description>
             <Text
               color="gray.50"
@@ -51,7 +56,7 @@ export const ItemCard = (props: Item) => {
               p={2}
               borderRadius="md"
             >
-              Condition: {props.condition}
+              Condition: {item.condition}
             </Text>
           </Card.Body>
           <Card.Footer gap="2" p={4}>
@@ -65,6 +70,7 @@ export const ItemCard = (props: Item) => {
               boxShadow: 'none',
             }}
             color="gray.50"
+            onClick={() => onMakeOfferClick(item)}
             >Make Offer</Button>
             <Button 
             variant="ghost" 
