@@ -13,7 +13,7 @@ interface ModalProps {
 }
 
 export const OfferModal: React.FC<ModalProps> = ({ item, username, onClose }) => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  
   const [offeredItemId, setOfferedItemId] = useState<number>(0);
   const [userItems, setUserItems] = useState<Item[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +26,6 @@ export const OfferModal: React.FC<ModalProps> = ({ item, username, onClose }) =>
         const items = await getUserItems(username);
         setUserItems(items);
         } else {
-          alert('Please log in to make an offer');
           setError('Please log in to make an offer');
         }
       } catch (error) {
@@ -35,7 +34,7 @@ export const OfferModal: React.FC<ModalProps> = ({ item, username, onClose }) =>
     };
 
     fetchUserItems();
-  }, [item.owner]);
+  }, [username]);
 
 
 
@@ -57,7 +56,7 @@ export const OfferModal: React.FC<ModalProps> = ({ item, username, onClose }) =>
   }
 
   return (
-    <CustomModal isOpen={isModalOpen} onClose={onClose} title={`Make an Offer on ${item.title}`}>
+    <CustomModal isOpen={true} onClose={onClose} title={`Make an Offer on ${item.title}`}>
       <form onSubmit={handleSubmit}>
         <select
           value={offeredItemId}
@@ -78,7 +77,7 @@ export const OfferModal: React.FC<ModalProps> = ({ item, username, onClose }) =>
           ))}
         </select>
         {error && <Text color="red.500">{error}</Text>}
-        <Button type="submit" mt="4" colorScheme="blue">Submit Offer</Button>
+        <Button type="submit" mt="4" colorScheme="blue" borderRadius="md">Submit Offer</Button>
       </form>
     </CustomModal>
   );

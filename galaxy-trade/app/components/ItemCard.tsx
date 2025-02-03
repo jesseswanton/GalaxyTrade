@@ -5,10 +5,11 @@ import { Item } from '../types/items'
 interface ItemCardProps {
   item: Item; // The individual item data
   onMakeOfferClick: (item: Item) => void; // The function to handle offer click
+  onDetailsClick: (item: Item) => void; // The function to handle details click
 }
 
 
-export const ItemCard = ({item, onMakeOfferClick}: ItemCardProps) => {
+export const ItemCard = ({item, onMakeOfferClick, onDetailsClick}: ItemCardProps) => {
   return (
     <Box
       maxW="sm"
@@ -82,6 +83,7 @@ export const ItemCard = ({item, onMakeOfferClick}: ItemCardProps) => {
             _focus={{
               boxShadow: 'none',
             }}
+            onClick={() => onDetailsClick(item)}
             >Details</Button>
           </Card.Footer>
         </Box>

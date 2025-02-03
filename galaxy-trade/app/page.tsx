@@ -8,8 +8,10 @@ import { ItemCard } from './components/ItemCard';
 import { FetchItems } from './api/items/fetchItems';
 import { Item } from './types/items';
 import { OfferModal } from './components/Modals/makeOfferModal';
+import { DetailsModal } from './components/Modals/ItemDetailsModal';
 import AnimatedPlanet from './components/AnimatedPlanet';
 import { useSession } from 'next-auth/react';
+import { set } from 'zod';
 
 async function getItems() {
   const items = await FetchItems();
@@ -33,6 +35,15 @@ const HomePage: FC = () => {
   const handleMakeOfferClick = (item: Item) => {
     setSelectedItem(item);
     setModalOpen(true);
+  };
+
+  const [ItemDetails, setItemDetails] = useState<Item | null>(null);
+  const [isDetailsModalOpen, setDetailsModalOpen] = useState(false);
+
+  //handle the details click
+  const handleDetailsClick = (item: Item) => {
+    setItemDetails(item);
+    setDetailsModalOpen(true);
   };
 
   //close the make offer modal
@@ -89,13 +100,17 @@ const HomePage: FC = () => {
               ))
             : // Map over items when they are available
             items.map((item) => (
-              <ItemCard key={item.id} item={item} onMakeOfferClick={handleMakeOfferClick} />
+              <ItemCard key={item.id} item={item} onMakeOfferClick={handleMakeOfferClick} onDetailsClick={handleDetailsClick} />
             ))}
 
           {/* Render the modal if it's open */}
           {isModalOpen && selectedItem && (
             <OfferModal item={selectedItem} username={user?.name || null} onClose={handleModalClose} />
           )}
+
+          {isDetailsModalOpen && ItemDetails && (
+            <DetailsModal item={ItemDetails} onClose={() => setDetailsModalOpen(false)} />
+          )}`
         </SimpleGrid>
       </Box>
     </Box>
