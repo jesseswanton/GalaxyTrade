@@ -1,15 +1,18 @@
-import { Stack, Image, Button, Card, } from "@chakra-ui/react";
+import { Stack, Image, Button, Card } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { Offer, Item } from "../types/items";
-import { getUserOffers } from "../lib/actions";
+import { OfferItem } from "../types/items";
+import { acceptOffer, getUserOffers } from "../lib/actions";
+import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 
 export default function Offers({ username }: { username: string }) {
-  const [userOffers, setUserOffers] = useState<Offer[] | Item[]>([]);
+  const [userOffers, setUserOffers] = useState<OfferItem[]>([]);
+  const [refresh, setRefresh] = useState(false)
+  // const [offerItems, setOfferItems] = useState<Item[]>([]);
   const { data: session } = useSession();
   const isLoggedIn = !!session;
 
-  console.log(isLoggedIn, userOffers)
+  console.log(userOffers);
 
   useEffect(() => {
     const fetchOffers = async () => {
@@ -21,14 +24,19 @@ export default function Offers({ username }: { username: string }) {
       }
     };
     fetchOffers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setRefresh(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refresh]);
+
+  // const handleAccept = (id: number, offererUsername: string, username: string) => {
+  //   acceptOffer
+  // }
 
   return (
     <div>
       {isLoggedIn && (
         <Stack gap={2} alignItems={"center"} className="inventory-stack">
-          {userOffers.map((offer, index) => (
+          {userOffers.map((item, index) => (
             <Card.Root
               key={index}
               size={"sm"}
@@ -36,20 +44,33 @@ export default function Offers({ username }: { username: string }) {
               p={3}
               className="inventory-card"
             >
-              <Image
-                src={offer.image}
-                alt={` picture of${offer.title}`}
-                maxH={"200px"}
-                maxW={200}
-                rounded={"inherit"}
-              />
+              <div style={{display:"flex"}} className="justify-center items-center">
+                <Image
+                  maxH={"200px"}
+                  maxW={200}
+                  rounded={"md"}
+                  src={item.offered_item_image}
+                  alt={`Picture of ${item.offered_item_title}`}
+                />
+                <HiOutlineSwitchHorizontal size={50} />
+                <Image
+                  src={item.item_image}
+                  alt={` picture of${item.item_title}`}
+                  maxH={"200px"}
+                  maxW={200}
+                  rounded={"md"}
+                />
+              </div>
               <Card.Body>
-                <Card.Title>{offer.title}</Card.Title>
-                <Card.Description>{offer.description}</Card.Description>
+                <Card.Title>{item.item_title}</Card.Title>
+                <Card.Description>{item.item_description}</Card.Description>
               </Card.Body>
-              <Card.Footer>
+              <Card.Footer display={"flex"} justifyContent={"space-around"}>
                 <Button px={2} variant={"solid"}>
-                  Mark Available
+                  Reject Offer
+                </Button>
+                <Button px={2} variant={"solid"} onClick={() => acceptOffer(item.owner, item.offered_item_offerer, item.offereditemid).then(() => setRefresh(true))}>
+                  Accept Offer
                 </Button>
               </Card.Footer>
             </Card.Root>

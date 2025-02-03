@@ -1,10 +1,10 @@
 "use server";
 // import { revalidatePath } from 'next/cache';
 // import { redirect } from 'next/navigation';
-import { sql } from '@vercel/postgres';
-import bcrypt from 'bcrypt'
-import { User } from './definitions';
-import { Item, Offer } from '../types/items';
+import { sql } from "@vercel/postgres";
+import bcrypt from "bcrypt";
+import { User } from "./definitions";
+import { Item, Offer, OfferItem } from "../types/items";
 
 export async function addUser(
   username: string,
@@ -61,12 +61,31 @@ export async function getUserItems(username: string): Promise<Item[]> {
   }
 }
 
-export async function getUserOffers(username: string): Promise<Offer[] | Item[]> {
+export async function getUserOffers(username: string): Promise<OfferItem[]> {
   try {
-    const result = await sql<Offer>`
-        SELECT * FROM offers 
-        JOIN items ON offers.item_id = items.id 
-        WHERE items.owner = ${username}
+    const result = await sql<OfferItem>`
+        SELECT 
+    offers.id AS offer_id,
+    offers.item_id,
+    items.title AS item_title,
+    items.description AS item_description,
+    items.condition AS item_condition,
+    items.image AS item_image,
+    offers.offereditemid,
+    items_offered.title AS offered_item_title,
+    items_offered.description AS offered_item_description,
+    items_offered.condition AS offered_item_condition,
+    items_offered.image AS offered_item_image,
+    offers.status
+FROM 
+    offers
+JOIN 
+    items ON offers.item_id = items.id
+JOIN 
+    items AS items_offered ON offers.offereditemid = items_offered.id
+WHERE 
+    items.owner = ${username};
+
         `;
     return result.rows;
   } catch (error) {
@@ -75,17 +94,39 @@ export async function getUserOffers(username: string): Promise<Offer[] | Item[]>
   }
 }
 
-export async function addItemOffer(itemId: number, offerer: string, offeredItemId: number): Promise<Offer | null> {
-    try {
-        const result = await sql<Offer>`
+export async function acceptOffer(
+  username: string,
+  offererUsername: string,
+  id: number
+) {
+  try {
+    await sql`
+      UPDATE items
+      SET owner = ${offererUsername},
+      tradable = false
+      WHERE owner = ${username};
+    `;
+    await sql`DELETE FROM offers WHERE offereditemid = ${id};`;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function addItemOffer(
+  itemId: number,
+  offerer: string,
+  offeredItemId: number
+): Promise<Offer | null> {
+  try {
+    const result = await sql<Offer>`
             INSERT INTO offers (item_id, offerer, offeredItemId, status)
             VALUES (${itemId}, ${offerer}, ${offeredItemId}, 'pending')
             RETURNING *;
         `;
 
-        return result.rows[0]
-    } catch (error) {
-        console.error("Error adding offer:", error);
-        return null;
-    }
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error adding offer:", error);
+    return null;
+  }
 }

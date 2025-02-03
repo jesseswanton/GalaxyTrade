@@ -67,9 +67,11 @@ const HomePage: FC =  () => {
                   </Box>
                 ))
             : // Map over items when they are available
-              items.map((item) => (
-                <ItemCard key={item.id} {...item} />
-              ))}
+                items
+                .filter((item) => item.tradable)
+                .map((item) => (
+                  <ItemCard key={item.id} {...item} />
+                ))}
       </SimpleGrid>
     </Box>
   </Box>
