@@ -52,8 +52,15 @@ const HomePage: FC = () => {
   };
 
   useEffect(() => {
-    getItems().then(setItems);
-    setLoading(false);
+    // getItems().then(setItems);
+    // setLoading(false);
+
+    const fetchItems = async () => {
+      const fetchedItems = await getItems();
+      setItems(fetchedItems);
+      setLoading(false);
+    };
+    fetchItems();
 
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -75,6 +82,20 @@ const HomePage: FC = () => {
       style={{ backgroundPosition: `center ${scrollY * 0.5}px` }}
       minHeight="100vh"
     >
+      {/* Render the modal if it's open */}
+      {isModalOpen && selectedItem && (
+        <OfferModal
+          item={selectedItem}
+          username={user?.name || null}
+          onClose={handleModalClose}
+        />
+      )}
+      {isDetailsModalOpen && ItemDetails && (
+        <DetailsModal
+          item={ItemDetails}
+          onClose={() => setDetailsModalOpen(false)}
+        />
+      )}
       <Box maxW="1200px" mx="auto" p={6}>
         <Box textAlign="center" mb={6} color="white" p={4} borderRadius="md">
           <Heading as="h1" size="xl">
@@ -86,41 +107,26 @@ const HomePage: FC = () => {
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={6}>
           {loading
             ? // Show skeletons if loading
-              Array(4)
-                .fill(0)
-                .map((_, index) => (
-                  <Box key={index}>
-                    <Skeleton height="200px" borderRadius="md" />
-                    <Skeleton height="20px" mt="4" />
-                    <Skeleton height="20px" mt="2" />
-                  </Box>
-                ))
+            Array(4)
+              .fill(0)
+              .map((_, index) => (
+                <Box key={index}>
+                  <Skeleton height="200px" borderRadius="md" />
+                  <Skeleton height="20px" mt="4" />
+                  <Skeleton height="20px" mt="2" />
+                </Box>
+              ))
             : // Map over items when they are available
-              items
-                .filter((item) => item.tradable)
-                .map((item) => (
-                  <ItemCard
-                    key={item.id}
-                    item={item}
-                    onMakeOfferClick={handleMakeOfferClick}
-                    onDetailsClick={handleDetailsClick}
-                  />
-                ))}
-          {/* Render the modal if it's open */}
-          {isModalOpen && selectedItem && (
-            <OfferModal
-              item={selectedItem}
-              username={user?.name || null}
-              onClose={handleModalClose}
-            />
-          )}
-          {isDetailsModalOpen && ItemDetails && (
-            <DetailsModal
-              item={ItemDetails}
-              onClose={() => setDetailsModalOpen(false)}
-            />
-          )}
-          `
+            items
+              .filter((item) => item.tradable)
+              .map((item) => (
+                <ItemCard
+                  key={item.id}
+                  item={item}
+                  onMakeOfferClick={handleMakeOfferClick}
+                  onDetailsClick={handleDetailsClick}
+                />
+              ))}
         </SimpleGrid>
       </Box>
     </Box>

@@ -31,12 +31,12 @@ export const DrawerCloseTrigger = React.forwardRef<
   return (
     <ChakraDrawer.CloseTrigger
       position="absolute"
-      top="2"
+      top="-2"
       insetEnd="2"
       {...props}
       asChild
     >
-      <CloseButton m={"4"} rounded={"full"} variant={"solid"} size="xl" ref={ref} />
+      <CloseButton m={"4"} rounded={"full"} variant={"solid"} size="xl" ref={ref} className="active:scale-90" />
     </ChakraDrawer.CloseTrigger>
   )
 })
