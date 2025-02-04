@@ -145,5 +145,3 @@ export async function addItemOffer(
     return null;
   }
 }
-
-export default function markAvailable()

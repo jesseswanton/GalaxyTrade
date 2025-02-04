@@ -1,7 +1,7 @@
 import { db } from '@vercel/postgres'
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     const client = await db.connect();
     const itemId = parseInt(params.id, 10)
 
