@@ -111,7 +111,7 @@ export async function acceptOffer(
       RETURNING *;
     `;
     await sql`UPDATE items SET owner = ${name}, tradable = false WHERE id = ${offerId} RETURNING *;`;
-    await sql`UPDATE offers SET status = 'accepted' WHERE id = ${offerId} RETURNING *;`;
+    await sql`UPDATE offers SET status = 'accepted' WHERE offereditemid = ${offerId} RETURNING *;`;
   } catch (error) {
     console.error(error);
   }
@@ -145,3 +145,5 @@ export async function addItemOffer(
     return null;
   }
 }
+
+export default function markAvailable()
