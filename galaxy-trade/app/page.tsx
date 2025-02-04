@@ -3,13 +3,12 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import { Box, SimpleGrid, Skeleton, Heading, Text, Button } from "@chakra-ui/react";
+import { Box, SimpleGrid, Skeleton, Heading, Text } from "@chakra-ui/react";
 import { ItemCard } from "./components/ItemCard";
 import { FetchItems } from "./api/items/fetchItems";
 import { Item } from "./types/items";
 import OfferModal from "./components/Modals/makeOfferModal";
 import { DetailsModal } from "./components/Modals/ItemDetailsModal";
-import { AddItemModal } from "./components/Modals/AddItemModal";
 import AnimatedPlanet from "./components/AnimatedPlanet";
 import { useSession } from "next-auth/react";
 // import { set } from 'zod';
@@ -23,7 +22,6 @@ const HomePage: FC = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [scrollY, setScrollY] = useState(0);
-  const [addItemModalOpen, setAddItemModalOpen] = useState(false);
 
   //state variables to pass to the make offer modal
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
@@ -46,11 +44,6 @@ const HomePage: FC = () => {
   const handleDetailsClick = (item: Item) => {
     setItemDetails(item);
     setDetailsModalOpen(true);
-  };
-
-  //handle the add item button click
-  const handleAddItemButtonClick = () => {
-    setAddItemModalOpen(true);
   };
 
   //close the make offer modal
@@ -103,21 +96,12 @@ const HomePage: FC = () => {
           onClose={() => setDetailsModalOpen(false)}
         />
       )}
-      {addItemModalOpen && (
-        <div>
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-50" />
-          <AddItemModal username={user?.name || null} onClose={() => setAddItemModalOpen(false)} />
-        </div>
-      )}
       <Box maxW="1200px" mx="auto" p={6}>
         <Box textAlign="center" mb={6} color="white" p={4} borderRadius="md">
           <Heading as="h1" size="xl">
             Welcome to GalaxyTrade 🌌
           </Heading>
           <Text fontSize="lg">Items available for trade.</Text>
-          <Button mt={4} colorScheme="teal" onClick={handleAddItemButtonClick}>
-            Add Item
-          </Button>
         </Box>
         <AnimatedPlanet />
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={6}>
