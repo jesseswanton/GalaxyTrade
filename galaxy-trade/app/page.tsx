@@ -3,12 +3,13 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import { Box, SimpleGrid, Skeleton, Heading, Text } from "@chakra-ui/react";
+import { Box, SimpleGrid, Skeleton, Heading, Text, Button } from "@chakra-ui/react";
 import { ItemCard } from "./components/ItemCard";
 import { FetchItems } from "./api/items/fetchItems";
 import { Item } from "./types/items";
 import OfferModal from "./components/Modals/makeOfferModal";
 import { DetailsModal } from "./components/Modals/ItemDetailsModal";
+import { AddItemModal } from "./components/Modals/AddItemModal";
 import AnimatedPlanet from "./components/AnimatedPlanet";
 import { useSession } from "next-auth/react";
 // import { set } from 'zod';
@@ -22,6 +23,7 @@ const HomePage: FC = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [scrollY, setScrollY] = useState(0);
+  const [addItemModalOpen, setAddItemModalOpen] = useState(false);
 
   //state variables to pass to the make offer modal
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
@@ -46,14 +48,26 @@ const HomePage: FC = () => {
     setDetailsModalOpen(true);
   };
 
+  //handle the add item button click
+  const handleAddItemButtonClick = () => {
+    setAddItemModalOpen(true);
+  };
+
   //close the make offer modal
   const handleModalClose = () => {
     setModalOpen(false);
   };
 
   useEffect(() => {
-    getItems().then(setItems);
-    setLoading(false);
+    // getItems().then(setItems);
+    // setLoading(false);
+
+    const fetchItems = async () => {
+      const fetchedItems = await getItems();
+      setItems(fetchedItems);
+      setLoading(false);
+    };
+    fetchItems();
 
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -75,52 +89,60 @@ const HomePage: FC = () => {
       style={{ backgroundPosition: `center ${scrollY * 0.5}px` }}
       minHeight="100vh"
     >
+      {/* Render the modal if it's open */}
+      {isModalOpen && selectedItem && (
+        <OfferModal
+          item={selectedItem}
+          username={user?.name || null}
+          onClose={handleModalClose}
+        />
+      )}
+      {isDetailsModalOpen && ItemDetails && (
+        <DetailsModal
+          item={ItemDetails}
+          onClose={() => setDetailsModalOpen(false)}
+        />
+      )}
+      {addItemModalOpen && (
+        <div>
+          <div className="fixed inset-0 bg-gray-600 bg-opacity-50" />
+          <AddItemModal username={user?.name || null} onClose={() => setAddItemModalOpen(false)} />
+        </div>
+      )}
       <Box maxW="1200px" mx="auto" p={6}>
         <Box textAlign="center" mb={6} color="white" p={4} borderRadius="md">
           <Heading as="h1" size="xl">
             Welcome to GalaxyTrade 🌌
           </Heading>
           <Text fontSize="lg">Items available for trade.</Text>
+          <Button mt={4} colorScheme="teal" onClick={handleAddItemButtonClick}>
+            Add Item
+          </Button>
         </Box>
         <AnimatedPlanet />
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={6}>
           {loading
             ? // Show skeletons if loading
-              Array(4)
-                .fill(0)
-                .map((_, index) => (
-                  <Box key={index}>
-                    <Skeleton height="200px" borderRadius="md" />
-                    <Skeleton height="20px" mt="4" />
-                    <Skeleton height="20px" mt="2" />
-                  </Box>
-                ))
+            Array(4)
+              .fill(0)
+              .map((_, index) => (
+                <Box key={index}>
+                  <Skeleton height="200px" borderRadius="md" />
+                  <Skeleton height="20px" mt="4" />
+                  <Skeleton height="20px" mt="2" />
+                </Box>
+              ))
             : // Map over items when they are available
-              items
-                .filter((item) => item.tradable)
-                .map((item) => (
-                  <ItemCard
-                    key={item.id}
-                    item={item}
-                    onMakeOfferClick={handleMakeOfferClick}
-                    onDetailsClick={handleDetailsClick}
-                  />
-                ))}
-          {/* Render the modal if it's open */}
-          {isModalOpen && selectedItem && (
-            <OfferModal
-              item={selectedItem}
-              username={user?.name || null}
-              onClose={handleModalClose}
-            />
-          )}
-          {isDetailsModalOpen && ItemDetails && (
-            <DetailsModal
-              item={ItemDetails}
-              onClose={() => setDetailsModalOpen(false)}
-            />
-          )}
-          `
+            items
+              .filter((item) => item.tradable)
+              .map((item) => (
+                <ItemCard
+                  key={item.id}
+                  item={item}
+                  onMakeOfferClick={handleMakeOfferClick}
+                  onDetailsClick={handleDetailsClick}
+                />
+              ))}
         </SimpleGrid>
       </Box>
     </Box>
