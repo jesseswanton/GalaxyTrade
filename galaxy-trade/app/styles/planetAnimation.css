@@ -1,50 +1,45 @@
 .animated-planet {
     position: absolute;
-    top: -150px;
-    left: -360px;
+    top: 10%;
+    left: 5%;
+    cursor: pointer; 
+    will-change: transform, opacity;
+    transition: transform 0.3s linear;
+}
+
+/* Animation starts when this class is added */
+.animated-planet.animate {
     animation: movePlanet 40s linear infinite;
-    z-index: 0;
-  }
-  
-  @keyframes movePlanet {
+}
+
+@keyframes movePlanet {
     0% {
-        top: -150px; 
-        left: -360px;
-        /* transform: scale(0.15); //translate2d */
-        opacity: .95;
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
     }
     20% {
         opacity: 1;
     }
     46% {
-        top: 18%;
-        left: 35%;
-        transform: scale(1.4) rotate(-35deg);
+        transform: translate(25vw, 18vh) scale(1.4) rotate(-35deg);
     }
     50% {
-        top: 18.7%;
-        left: 40%;
-        transform: scale(1.45) rotate(-32deg);
+        transform: translate(30vw, 18.7vh) scale(1.45) rotate(-32deg);
         opacity: 1;
-      }
+    }
     56% {
-        transform: scale(1.4) rotate(-30deg);
-        top: 18%;
+        transform: translate(28vw, 18vh) scale(1.4) rotate(-30deg);
     }
     73% {
-        top: 13%;
-        transform: rotate(-20deg);
+        transform: translate(35vw, 13vh) scale(1.3) rotate(-20deg);
         opacity: 1;
     }
     95% {
-        top: 5%;
-        opacity: .95;
+        transform: translate(55vw, 5vh) scale(0.6) rotate(-10deg);
+        opacity: 0.95;
     }
     100% {
-        top: 0%;
-        left: 105%;
-        transform: scale(.05) rotate(0deg);
-        opacity: .05;
+        transform: translate(65vw, 0vh) scale(0.05) rotate(0deg);
+        opacity: 0.05;
     }
-  }
-  
+}
