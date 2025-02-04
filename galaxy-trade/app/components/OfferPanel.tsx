@@ -7,7 +7,6 @@ import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 
 export default function Offers({ username }: { username: string }) {
   const [userOffers, setUserOffers] = useState<OfferItem[]>([]);
-  const [refresh, setRefresh] = useState(false)
   // const [offerItems, setOfferItems] = useState<Item[]>([]);
   const { data: session } = useSession();
   const isLoggedIn = !!session;
@@ -70,10 +69,10 @@ export default function Offers({ username }: { username: string }) {
                 <Card.Description>{item.offered_item_description}</Card.Description>
               </Card.Body>
               <Card.Footer display={"flex"} justifyContent={"space-around"} mt={2}>
-                <Button px={2} variant={"solid"} colorPalette={"red"} onClick={() => declineOffer(item.offereditemid).then(() => setRefresh(true))}>
+                <Button px={2} variant={"solid"} colorPalette={"red"} onClick={() => declineOffer(item.offereditemid)}>
                   Reject Offer
                 </Button>
-                <Button px={2} variant={"solid"} colorPalette={"green"} onClick={async() => await acceptOffer(username, item.offerer, item.item_id, item.offereditemid).then(() => setRefresh(true))}>
+                <Button px={2} variant={"solid"} colorPalette={"green"} onClick={async() => await acceptOffer(username, item.offerer, item.item_id, item.offereditemid)}>
                   Accept Offer
                 </Button>
               </Card.Footer>
