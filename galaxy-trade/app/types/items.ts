@@ -20,13 +20,13 @@ export interface Offer {
 
 export interface OfferItem {
     offer_id: number; // ID of the offer
-    owner: string;
+    owner: string; // Owner of the wanted item
     item_id: number; // ID of the item
     item_title: string; // Title of the item
     item_description: string; // Description of the item
     item_condition: string; // Condition of the item (e.g., "Good", "Excellent")
     item_image: string; // URL of the item's image
-    offered_item_offerer: string;
+    offerer: string;
     offereditemid: number; // ID of the offered item
     offered_item_title: string; // Title of the offered item
     offered_item_description: string; // Description of the offered item

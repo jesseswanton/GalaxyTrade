@@ -2,7 +2,7 @@ import { Stack, Image, Button, Card } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { OfferItem } from "../types/items";
-import { acceptOffer, getUserOffers } from "../lib/actions";
+import { acceptOffer, declineOffer, getUserOffers } from "../lib/actions";
 import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 
 export default function Offers({ username }: { username: string }) {
@@ -13,6 +13,7 @@ export default function Offers({ username }: { username: string }) {
   const isLoggedIn = !!session;
 
   console.log(userOffers);
+  // console.log(username)
 
   useEffect(() => {
     const fetchOffers = async () => {
@@ -24,9 +25,12 @@ export default function Offers({ username }: { username: string }) {
       }
     };
     fetchOffers();
-    setRefresh(false);
+    const interval = setInterval(fetchOffers, 10000); // Poll every 5 seconds
+
+    return () => clearInterval(interval); // Cleanup
+    // setRefresh(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refresh]);
+  }, []);
 
   // const handleAccept = (id: number, offererUsername: string, username: string) => {
   //   acceptOffer
@@ -36,7 +40,7 @@ export default function Offers({ username }: { username: string }) {
     <div>
       {isLoggedIn && (
         <Stack gap={2} alignItems={"center"} className="inventory-stack">
-          {userOffers.map((item, index) => (
+          {userOffers.filter((item) => item.status !== "rejected").map((item, index) => (
             <Card.Root
               key={index}
               size={"sm"}
@@ -62,14 +66,14 @@ export default function Offers({ username }: { username: string }) {
                 />
               </div>
               <Card.Body>
-                <Card.Title>{item.item_title}</Card.Title>
-                <Card.Description>{item.item_description}</Card.Description>
+                <Card.Title>{`${item.offerer} is offering their ${item.offered_item_title} for your ${item.item_title}`}</Card.Title>
+                <Card.Description>{item.offered_item_description}</Card.Description>
               </Card.Body>
-              <Card.Footer display={"flex"} justifyContent={"space-around"}>
-                <Button px={2} variant={"solid"}>
+              <Card.Footer display={"flex"} justifyContent={"space-around"} mt={2}>
+                <Button px={2} variant={"solid"} colorPalette={"red"} onClick={() => declineOffer(item.offereditemid).then(() => setRefresh(true))}>
                   Reject Offer
                 </Button>
-                <Button px={2} variant={"solid"} onClick={() => acceptOffer(item.owner, item.offered_item_offerer, item.offereditemid).then(() => setRefresh(true))}>
+                <Button px={2} variant={"solid"} colorPalette={"green"} onClick={async() => await acceptOffer(username, item.offerer, item.item_id, item.offereditemid).then(() => setRefresh(true))}>
                   Accept Offer
                 </Button>
               </Card.Footer>

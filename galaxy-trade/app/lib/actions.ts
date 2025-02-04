@@ -72,6 +72,7 @@ export async function getUserOffers(username: string): Promise<OfferItem[]> {
     items.condition AS item_condition,
     items.image AS item_image,
     offers.offereditemid,
+    offers.offerer,
     items_offered.title AS offered_item_title,
     items_offered.description AS offered_item_description,
     items_offered.condition AS offered_item_condition,
@@ -95,18 +96,32 @@ WHERE
 }
 
 export async function acceptOffer(
-  username: string,
+  name: string,
   offererUsername: string,
-  id: number
+  id: number,
+  offerId: number
 ) {
   try {
+    console.log('Username:', name, 'offerer:', offererUsername, 'id:', id, 'offerId:', offerId);
     await sql`
       UPDATE items
       SET owner = ${offererUsername},
       tradable = false
-      WHERE owner = ${username};
+      WHERE owner = ${name} AND id = ${id}
+      RETURNING *;
     `;
-    await sql`DELETE FROM offers WHERE offereditemid = ${id};`;
+    await sql`UPDATE items SET owner = ${name}, tradable = false WHERE id = ${offerId} RETURNING *;`;
+    await sql`UPDATE offers SET status = 'accepted' WHERE id = ${offerId} RETURNING *;`;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function declineOffer(id: number) {
+  try {
+    await sql`
+      UPDATE offers SET status = 'rejected' WHERE offereditemid = ${id}
+    `
   } catch (error) {
     console.error(error);
   }
