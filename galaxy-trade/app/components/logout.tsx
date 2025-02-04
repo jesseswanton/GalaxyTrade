@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/drawer";
 import { useEffect, useState } from "react";
 import Inventory from "./InventoryPanel";
+import Offers from "./OfferPanel";
 // import EditPP from "../ui/editPP";
 import UploadImage from './UploadImage';
 
@@ -66,7 +67,7 @@ export default function Logout({ username }: { username: string }) {
       <DrawerRoot size={"md"}>
         <DrawerBackdrop />
         <DrawerTrigger asChild>
-          <Avatar size="2xl" name={username} src={userPic || placeholderPic} />
+          <Avatar className="hover:cursor-pointer" size="2xl" name={username} src={userPic || placeholderPic} />
         </DrawerTrigger>
         <DrawerContent>
           <DrawerCloseTrigger zIndex={100} />
@@ -97,6 +98,8 @@ export default function Logout({ username }: { username: string }) {
             </div>
             <DrawerTitle className="sticky top-0 z-10 w-full h-fit p-3 drop-shadow-md">Inventory</DrawerTitle>
             <Inventory username={username}/>
+            <DrawerTitle className="sticky top-0 z-10 w-full h-fit p-3 drop-shadow-md">Offers</DrawerTitle>
+            <Offers username={username} />
           </DrawerBody>
           <DrawerFooter />
           <Button className="m-3 p-2" onClick={() => signOut()}>
