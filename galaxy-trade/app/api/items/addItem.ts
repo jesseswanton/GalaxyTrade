@@ -3,7 +3,7 @@ import { Item } from '../../types/items';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function AddItem(Item: Omit<Item, 'id' | 'offers'>): Promise<void> {
+export async function AddItem(Item: Omit<Item, 'id' | 'offers'>): Promise<any> {
     try {
         const response = await fetch(`${API_BASE_URL}/api/items/itemRoutes`, {
             method: 'POST',
