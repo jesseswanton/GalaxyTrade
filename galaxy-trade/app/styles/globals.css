@@ -13,11 +13,11 @@
 
 .navbar {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #181818;
+  background: linear-gradient(to bottom, #181818 45%, transparent 150%);
   color: white;
 }
 
@@ -64,8 +64,11 @@
   margin-bottom: 1rem;
 }
 
-/* Make footer stick to the bottom */
 body {
+  background-image: url('/galaxy-swirl.jpg');
+  background-size: cover;
+  background-repeat: repeat;
+  background-attachment: fixed; 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -132,4 +135,13 @@ body {
 
 .inventory-card > * {
   margin: 3 0 3 0;
+}
+
+.popover-content {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  z-index: 9999;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useImageContext } from "../context/ImageContext";
 import {
-  Button,
+  IconButton,
   Image,
   VStack,
   HStack,
@@ -13,37 +13,44 @@ import {
 } from "@chakra-ui/react";
 
 const ImageLibrary = () => {
-  const { setImageSrc } = useImageContext();
-  const [images, setImages] = useState<string[]>([]);
+  const { images } = useImageContext();
 
   useEffect(() => {
-    const storedImages = JSON.parse(localStorage.getItem("uploadedImages") || "[]");
-    setImages(storedImages);
+    // Optionally, you can fetch the images from localStorage here too,
+    // though using context already ensures this will be updated on the fly.
   }, []);
 
-  const handleImageClick = (publicId: string) => {
-    setImageSrc(publicId);
-  };
+//   const handleImageClick = (publicId: string) => {
+//     // Here you can set the selected image to be used elsewhere if necessary
+//   };
 
   return (
     <PopoverRoot>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm">Image Library</Button>
+        <IconButton p={3} className="mx-3 hover:cursor-pointer active:scale-[.95]">
+          Image Library
+        </IconButton>
       </PopoverTrigger>
-      <PopoverContent className="p-4 w-64">
+      <PopoverContent
+      className="popover-content p-4 w-64"
+      overflowY="auto"
+      maxHeight="600px"
+      marginTop="30px"
+      boxShadow="lg"
+      >
         <VStack gap={3}>
           {images.length > 0 ? (
-            <HStack wrap="wrap" gap={2}>
+            <HStack wrap="wrap" gap={2} justify="center">
               {images.map((publicId) => (
                 <Image
                   key={publicId}
                   src={`https://res.cloudinary.com/dtmymakyr/image/upload/${publicId}`}
                   alt="Uploaded Image"
-                  boxSize="50px"
+                  boxSize="150px"
                   objectFit="cover"
                   borderRadius="md"
                   cursor="pointer"
-                  onClick={() => handleImageClick(publicId)}
+                //   onClick={() => handleImageClick(publicId)}
                 />
               ))}
             </HStack>

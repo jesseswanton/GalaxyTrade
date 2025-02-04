@@ -1,28 +1,38 @@
 'use client';
 
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
-interface ImageContextType {
-  imageSrc: string;
-  setImageSrc: (src: string) => void;
-}
+type ImageContextType = {
+  images: string[];
+  setImages: (images: string[]) => void;
+};
 
 const ImageContext = createContext<ImageContextType | undefined>(undefined);
-
-export const ImageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [imageSrc, setImageSrc] = useState<string>('samples/logo'); // Default image source
-
-  return (
-    <ImageContext.Provider value={{ imageSrc, setImageSrc }}>
-      {children}
-    </ImageContext.Provider>
-  );
-};
 
 export const useImageContext = (): ImageContextType => {
   const context = useContext(ImageContext);
   if (!context) {
-    throw new Error('useImageContext must be used within an ImageProvider');
+    throw new Error("useImageContext must be used within an ImageProvider");
   }
   return context;
+};
+
+type ImageProviderProps = {
+  children: ReactNode;
+};
+
+export const ImageProvider = ({ children }: ImageProviderProps) => {
+  const [images, setImages] = useState<string[]>(JSON.parse(localStorage.getItem("uploadedImages") || "[]"));
+
+  // Update localStorage whenever images state changes
+  const setImagesInContext = (newImages: string[]) => {
+    localStorage.setItem("uploadedImages", JSON.stringify(newImages));
+    setImages(newImages);
+  };
+
+  return (
+    <ImageContext.Provider value={{ images, setImages: setImagesInContext }}>
+      {children}
+    </ImageContext.Provider>
+  );
 };
