@@ -5,10 +5,20 @@
 
 import { Button } from "@chakra-ui/react";
 import { CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary';
-// import { useImageContext } from '../context/ImageContext';
+import { useImageContext } from '../context/ImageContext';
 
-const UploadImage = ({ onUploadSuccess }: { onUploadSuccess: (publicId: string) => void }) => {
-//   const { setImageSrc } = useImageContext();
+const UploadImage = () => {
+    const { setImageSrc } = useImageContext();
+
+    const handleUploadSuccess = (publicId: string) => {
+
+    const storedImages = JSON.parse(localStorage.getItem("uploadedImages") || "[]");
+    const updatedImages = [...storedImages, publicId];
+
+    localStorage.setItem("uploadedImages", JSON.stringify(updatedImages));
+
+    setImageSrc(publicId);
+    };
 
   return (
     <CldUploadWidget
@@ -22,7 +32,7 @@ const UploadImage = ({ onUploadSuccess }: { onUploadSuccess: (publicId: string) 
         onSuccess={(results: CloudinaryUploadWidgetResults) => {
             if (typeof results.info === 'object' && results.info?.public_id) {
                 // console.log('Public ID:', results.info.public_id);
-                onUploadSuccess(results.info.public_id);
+                handleUploadSuccess(results.info.public_id);
                 // Update context with the new image source
                 // setImageSrc(results.info.public_id); 
             } else {
@@ -33,9 +43,9 @@ const UploadImage = ({ onUploadSuccess }: { onUploadSuccess: (publicId: string) 
         {/* //Button */}
         {({ open }) => {
             return (
-            <Button onClick={() => open()}>
-                Upload
-            </Button>
+                <Button variant="outline" size="sm" onClick={() => open()}>
+                    Upload Image
+                </Button>
             );
         }}
     </CldUploadWidget>

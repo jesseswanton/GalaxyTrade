@@ -11,10 +11,9 @@
   box-sizing: border-box;
 }
 
-/* Basic styling for Navbar */
 .navbar {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
@@ -82,6 +81,11 @@ body {
 
 }
 
+.links a {
+  text-decoration: none;
+  color: white; /* Make sure text color is white */
+}
+
 .inventory-stack * {
   display: block;
 }
@@ -94,13 +98,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
+  width: 100%;
 }
 
 .carousel-title {
   /* position: absolute; */
-  top: 15px;
-  right: 50%;
+  /* top: 15px;
+  right: 50%; */
   /* transform: translateY(50%);
   transform: translateX(45%); */
   z-index: 2;
