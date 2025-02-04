@@ -86,7 +86,7 @@ body {
 
 .links a {
   text-decoration: none;
-  color: white; /* Make sure text color is white */
+  color: white;
 }
 
 .inventory-stack * {

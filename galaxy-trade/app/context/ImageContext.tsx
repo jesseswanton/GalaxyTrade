@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 type ImageContextType = {
   images: string[];
@@ -22,7 +22,13 @@ type ImageProviderProps = {
 };
 
 export const ImageProvider = ({ children }: ImageProviderProps) => {
-  const [images, setImages] = useState<string[]>(JSON.parse(localStorage.getItem("uploadedImages") || "[]"));
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Only run this on the client side
+    const storedImages = JSON.parse(localStorage.getItem("uploadedImages") || "[]");
+    setImages(storedImages);
+  }, []);
 
   // Update localStorage whenever images state changes
   const setImagesInContext = (newImages: string[]) => {

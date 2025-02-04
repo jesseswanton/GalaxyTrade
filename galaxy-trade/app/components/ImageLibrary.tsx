@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from "react";
 import { useImageContext } from "../context/ImageContext";
 import {
   IconButton,
@@ -14,15 +13,6 @@ import {
 
 const ImageLibrary = () => {
   const { images } = useImageContext();
-
-  useEffect(() => {
-    // Optionally, you can fetch the images from localStorage here too,
-    // though using context already ensures this will be updated on the fly.
-  }, []);
-
-//   const handleImageClick = (publicId: string) => {
-//     // Here you can set the selected image to be used elsewhere if necessary
-//   };
 
   return (
     <PopoverRoot>
@@ -50,7 +40,6 @@ const ImageLibrary = () => {
                   objectFit="cover"
                   borderRadius="md"
                   cursor="pointer"
-                //   onClick={() => handleImageClick(publicId)}
                 />
               ))}
             </HStack>
