@@ -8,9 +8,9 @@
   
   @keyframes movePlanet {
     0% {
-        top: -150px;
+        top: -150px; 
         left: -360px;
-        transform: scale(0.15);
+        /* transform: scale(0.15); //translate2d */
         opacity: .95;
     }
     20% {
