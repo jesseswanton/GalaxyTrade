@@ -85,7 +85,7 @@ JOIN
 JOIN 
     items AS items_offered ON offers.offereditemid = items_offered.id
 WHERE 
-    items.owner = ${username};
+    items.owner = ${username} AND offers.status NOT IN ('rejected','accepted');
 
         `;
     return result.rows;
@@ -146,4 +146,19 @@ export async function addItemOffer(
   }
 }
 
-export default function markAvailable()
+export async function markAvailable(id: number) {
+  try {
+    await sql`UPDATE items SET tradable = TRUE WHERE id = ${id} `
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function deleteItem(id: number) {
+  try {
+    console.log(`deleting item with id ${id}`)
+    await sql`DELETE FROM items WHERE id = ${id}`
+  } catch (error) {
+    console.error(error)
+  }
+}

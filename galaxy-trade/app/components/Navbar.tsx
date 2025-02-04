@@ -1,18 +1,20 @@
-'use client'
+"use client";
 
 // import Link from 'next/link';
-import Carousel from './Carousel';
+import Carousel from "./Carousel";
 // import { Spacer } from '@chakra-ui/react';
-import Login from './login'
-import Logout from './logout'
+import Login from "./login";
+import Logout from "./logout";
 // import { getProfilePic } from '../lib/actions';
 
-export default function Navbar({ isLoggedIn, username }: { isLoggedIn: boolean, username: string }) { 
-  // const getUsersPic = async (username: string) => {
-  //   const profilePic = await getProfilePic(username)
-  //   return profilePic
-  // }
-  
+export default function Navbar({
+  isLoggedIn,
+  username,
+}: {
+  isLoggedIn: boolean;
+  username: string;
+}) {
+
   return (
     <nav className="navbar flex items-center justify-between px-4 py-2 bg-gray-900 text-white">
       <div className="flex-grow" />
@@ -22,12 +24,8 @@ export default function Navbar({ isLoggedIn, username }: { isLoggedIn: boolean, 
       </div>
       <div className="links flex-grow flex items-center justify-end">
         {/* <Link href="/">Home</Link> */}
-        {isLoggedIn ? (
-          <Logout username={username}/>
-        ) : (
-          <Login />
-        )}
+        {isLoggedIn ? <Logout username={username} /> : <Login />}
       </div>
     </nav>
-    );
-  };
+  );
+}

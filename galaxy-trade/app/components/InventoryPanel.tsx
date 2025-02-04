@@ -1,6 +1,14 @@
 // Sliding inventory panel component
 import { Stack, Card, Image, Button } from "@chakra-ui/react";
-import { getUserItems } from "../lib/actions";
+import {
+  PopoverBody,
+  PopoverContent,
+  PopoverRoot,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { HiDotsHorizontal } from "react-icons/hi";
+import { markAvailable, getUserItems, deleteItem } from "../lib/actions";
 import { useState, useEffect } from "react";
 import { Item } from "../types/items";
 import { useSession } from "next-auth/react";
@@ -11,7 +19,7 @@ export default function Inventory({ username }: { username: string }) {
   const { data: session } = useSession();
   const isLoggedIn = !!session;
 
-  console.log(userInventory)
+  // console.log(userInventory);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -23,8 +31,14 @@ export default function Inventory({ username }: { username: string }) {
       }
     };
     fetchItems();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleDelete = (id: number) => {
+    console.log(`the passed id = ${id}`)
+    deleteItem(id)
+    setUserInventory((prev) => prev.filter((item) => item.id !== id))
+  }
 
   return (
     <div>
@@ -38,6 +52,20 @@ export default function Inventory({ username }: { username: string }) {
               p={3}
               className="inventory-card"
             >
+              <PopoverRoot lazyMount closeOnInteractOutside={false}>
+                <PopoverTrigger asChild>
+                  <HiDotsHorizontal
+                    size={20}
+                    className="rounded-full absolute top-1 right-3 hover:cursor-pointer active:scale-90"
+                  />
+                </PopoverTrigger>
+                <PopoverContent w={125} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+                  <PopoverBody>
+                    <PopoverTitle mx={2} mt={2}>Edit item</PopoverTitle>
+                    <Button size={"sm"} colorPalette={"red"} m={2} p={2} onClick={() => handleDelete(item.id)}>Delete Item</Button>
+                  </PopoverBody>
+                </PopoverContent>
+              </PopoverRoot>
               <Image
                 src={item.image}
                 alt={` picture of${item.title}`}
@@ -50,9 +78,16 @@ export default function Inventory({ username }: { username: string }) {
                 <Card.Description>{item.description}</Card.Description>
               </Card.Body>
               <Card.Footer>
-                <Button px={2} variant={"solid"}>
-                  Mark Available
-                </Button>
+                {!item.tradable && (
+                  <Button
+                    px={2}
+                    variant={"solid"}
+                    mt={2}
+                    onClick={() => markAvailable(item.id)}
+                  >
+                    Mark Available
+                  </Button>
+                )}
               </Card.Footer>
             </Card.Root>
           ))}
