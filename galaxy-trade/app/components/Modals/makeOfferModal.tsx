@@ -77,7 +77,7 @@ export const OfferModal: React.FC<ModalProps> = ({ item, username, onClose }) =>
           ))}
         </select>
         {error && <Text color="red.500">{error}</Text>}
-        <Button type="submit" mt="4" colorScheme="blue" borderRadius="md">Submit Offer</Button>
+        <Button type="submit" mt="4" colorScheme="blue" borderRadius="md" p={2}>Submit Offer</Button>
       </form>
     </CustomModal>
   );

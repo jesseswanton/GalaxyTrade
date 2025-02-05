@@ -25,7 +25,7 @@ const ImageSelector = ({ setUserPic }: ImageSelectorProps) => {
   };
 
   return (
-    <Box p={4}>
+    <Box p={1} maxHeight="500px" overflowY="auto">
       <VStack gap={3}>
         {images.length > 0 ? (
           <HStack wrap="wrap" gap={2} justify="center">

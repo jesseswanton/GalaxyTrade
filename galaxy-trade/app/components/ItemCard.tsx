@@ -24,7 +24,15 @@ export const ItemCard = ({item, onMakeOfferClick, onDetailsClick}: ItemCardProps
       }}
       transition="all 0.3s ease-in-out" // Smooth transition
     >
-      <Card.Root maxW="sm" overflow="hidden" bg="gray.400" borderRadius="md" boxShadow="md" display="flex" flexDirection="column" height="100%">
+      <Card.Root
+      maxW="sm"
+      overflow="hidden"
+      bg="gray.400"
+      borderRadius="md"
+      boxShadow="md"
+      display="flex"
+      flexDirection="column"
+      height="100%">
         <Image
           src={item.image}
           alt={item.title}
@@ -41,15 +49,16 @@ export const ItemCard = ({item, onMakeOfferClick, onDetailsClick}: ItemCardProps
           }}
           aspectRatio=".85"
           minHeight="5vh"
+          flex="1"
         >
           <Card.Body display="flex" flexDirection="column" flex="1" p={4}>
-            <Card.Title textStyle="2x1" color="white">{item.title}</Card.Title>
+            <Card.Title textStyle="2x1" color="white" pb={2}> {item.title} </Card.Title>
             <Card.Description textStyle="sm" color="white" bg="blackAlpha.800" borderRadius="md" p={4}>
               {item.description}
             </Card.Description>
             <Text
               color="gray.50"
-              textStyle="2xl"
+              textStyle="sm"
               fontWeight="medium"
               letterSpacing="tight"
               mt="2"
@@ -59,6 +68,7 @@ export const ItemCard = ({item, onMakeOfferClick, onDetailsClick}: ItemCardProps
             >
               Condition: {item.condition}
             </Text>
+
             <Card.Footer display="flex" justifyContent="space-between" mt="auto" p={4}>
                 <Button 
                 variant="ghost" 
@@ -69,9 +79,11 @@ export const ItemCard = ({item, onMakeOfferClick, onDetailsClick}: ItemCardProps
                 _focus={{
                   boxShadow: 'none',
                 }}
+                p={4}
                 color="gray.50"
                 onClick={() => onMakeOfferClick(item)}
-                >Make Offer</Button>
+                > Make Offer </Button>
+
                 <Button 
                 variant="ghost" 
                 color="gray.50"
@@ -82,8 +94,10 @@ export const ItemCard = ({item, onMakeOfferClick, onDetailsClick}: ItemCardProps
                 _focus={{
                   boxShadow: 'none',
                 }}
+                p={4}
                 onClick={() => onDetailsClick(item)}
-                >Details</Button>
+                >Details </Button>
+
             </Card.Footer>
           </Card.Body>
         </Box>

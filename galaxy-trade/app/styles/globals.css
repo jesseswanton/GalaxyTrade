@@ -18,9 +18,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: linear-gradient(to bottom, #181818 45%, transparent 150%);
+  background: linear-gradient(to bottom, #000000 0%, transparent 90%);
   color: white;
   transition: height 0.3s ease-in-out;
+  min-height: 135px;
 }
 
 .navbar .logo h1 {
@@ -43,6 +44,7 @@
   color: white;
   padding: 2rem 0;
   text-align: center;
+  background: linear-gradient(to top, #000000 0%, transparent 100%);
 }
 
 .footer-content {
@@ -62,7 +64,7 @@
 }
 
 .footer p {
-  margin-bottom: 1rem;
+  margin-bottom: .25rem;
 }
 
 body {

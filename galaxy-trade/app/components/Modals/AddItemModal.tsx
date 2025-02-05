@@ -28,6 +28,7 @@ export const AddItemModal: React.FC<ModalProps> = ({ username, onClose }) => {
     const [tradable, setTradable] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [owner, setOwner] = useState<string | null>(username);
+    const [popoverOpen, setPopoverOpen] = useState(false);
     
     useEffect(() => {
         if (username) {
@@ -69,6 +70,12 @@ export const AddItemModal: React.FC<ModalProps> = ({ username, onClose }) => {
             alert('An error occurred while adding the item');
         }
     }
+
+    useEffect(() => {
+        if (image) {
+            setPopoverOpen(false);
+        }
+    }, [image]);
 
     return (
         <CustomModal isOpen={true} onClose={onClose} title={`Add New Item`}>
@@ -115,14 +122,16 @@ export const AddItemModal: React.FC<ModalProps> = ({ username, onClose }) => {
 
                     <Box>
                     <label>Image URL </label>
-                        <PopoverRoot>
+                        <PopoverRoot open={popoverOpen} onOpenChange={(e) => setPopoverOpen(e.open)}>
                             <PopoverTrigger>
-                                <div className="mx-3 hover:cursor-pointer active:scale-[.95] ] flex items-center justify-center p-2 rounded-md text-white bg-black hover:bg-gray-800 transition-all">
+                                <div className="mx-3 hover:cursor-pointer active:scale-[.95] ] flex items-center justify-center p-2.5 rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-all"
+                                    onClick={() => setPopoverOpen(true)}
+                                >
                                     Open Image Library
                                 </div>
                             </PopoverTrigger>
                             <PopoverContent p={4} borderRadius="md" boxShadow="lg" width="auto" minWidth="300px">
-                                <ImageSelector setUserPic={setImage} />
+                            <ImageSelector setUserPic={setImage} />
                             </PopoverContent>
                         </PopoverRoot>
                         <Input

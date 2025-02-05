@@ -17,7 +17,7 @@ export default function Login() {
       <DrawerRoot size={"lg"}>
         <DrawerBackdrop />
         <DrawerTrigger asChild>
-          <button>
+          <button className="relative z-10">
             <div className="flex items-center">
               <HiMiniUserCircle
                 className="hover:cursor-pointer active:scale-90 size-16" 
