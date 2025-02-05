@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 
 type ImageContextType = {
   images: string[];
-  setImages: (images: string[]) => void;
+  imageSrc: (images: string[]) => void;
 };
 
 const ImageContext = createContext<ImageContextType | undefined>(undefined);
@@ -22,22 +22,22 @@ type ImageProviderProps = {
 };
 
 export const ImageProvider = ({ children }: ImageProviderProps) => {
-  const [images, setImages] = useState<string[]>([]);
+  const [images, imageSrc] = useState<string[]>([]);
 
   useEffect(() => {
     // Only run this on the client side
     const storedImages = JSON.parse(localStorage.getItem("uploadedImages") || "[]");
-    setImages(storedImages);
+    imageSrc(storedImages);
   }, []);
 
   // Update localStorage whenever images state changes
   const setImagesInContext = (newImages: string[]) => {
     localStorage.setItem("uploadedImages", JSON.stringify(newImages));
-    setImages(newImages);
+    imageSrc(newImages);
   };
 
   return (
-    <ImageContext.Provider value={{ images, setImages: setImagesInContext }}>
+    <ImageContext.Provider value={{ images, imageSrc: setImagesInContext }}>
       {children}
     </ImageContext.Provider>
   );

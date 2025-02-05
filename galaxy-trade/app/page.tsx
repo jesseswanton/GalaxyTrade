@@ -21,7 +21,7 @@ async function getItems() {
 const HomePage: FC = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
-  const [scrollY, setScrollY] = useState(0);
+  // const [scrollY, setScrollY] = useState(0);
 
   //state variables to pass to the make offer modal
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
@@ -62,25 +62,26 @@ const HomePage: FC = () => {
     };
     fetchItems();
 
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
+    // const handleScroll = () => {
+    //   setScrollY(window.scrollY);
+    // };
 
-    window.addEventListener("scroll", handleScroll);
+    // window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    // return () => {
+    //   window.removeEventListener("scroll", handleScroll);
+    // };
   }, []);
 
   return (
     <Box
-      bgImage="url('/galaxy-swirl.jpg')"
-      bgSize="cover"
-      position="center"
-      bgRepeat="no-repeat"
-      style={{ backgroundPosition: `center ${scrollY * 0.5}px` }}
-      minHeight="100vh"
+      // bgImage="url('/galaxy-swirl.jpg')"
+      // bgSize="cover"
+      // position="center"
+      // bgRepeat="no-repeat"
+      // backgroundAttachment="fixed"
+      // // style={{ backgroundPosition: `center ${scrollY * 0.5}px` }}
+      // minHeight="100vh"
     >
       {/* Render the modal if it's open */}
       {isModalOpen && selectedItem && (

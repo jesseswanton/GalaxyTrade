@@ -27,15 +27,14 @@ import Offers from "./OfferPanel";
 import ImageSelector from "../components/ImageSelector";
 
 export default function Logout({ username }: { username: string }) {
-  const placeholderPic =
-    "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
+  const placeholderPic = "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
 
   const [userPic, setUserPic] = useState("");
   const [addItemModalOpen, setAddItemModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchProfilePic(username: string) {
-      const pic = await getProfilePic(username);
+      const pic = await getProfilePic(username)
       if (pic) {
         setUserPic(pic);
       }
@@ -49,7 +48,7 @@ export default function Logout({ username }: { username: string }) {
 
   return (
     <div className="flex items-center">
-      <p className="hidden md:block mx-2">{`${username}`}</p>
+      <p className="mx-2">{`${username}`}</p>
       <DrawerRoot size={"md"}>
         <DrawerBackdrop />
         <DrawerTrigger asChild>
