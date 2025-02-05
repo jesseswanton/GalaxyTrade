@@ -1,7 +1,7 @@
 // Fetching data from NASA API
 
 const NASA_API_BASE_URL = "https://api.nasa.gov/planetary/apod";
-const NASA_API_KEY = process.env.NEXT_PUBLIC_NASA_API_KEY ?? "";
+const NASA_API_KEY = process.env.NEXT_PUBLIC_NASA_API_KEY || "DEMO_KEY";
 
 if (!NASA_API_KEY) {
   throw new Error("NASA_API_KEY is not defined. Please check your environment variables.");
