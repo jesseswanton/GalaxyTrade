@@ -1,7 +1,7 @@
 import { signOut } from "next-auth/react";
 import { HiOutlinePlus } from "react-icons/hi";
 import { AddItemModal } from "../components/Modals/AddItemModal";
-import {getProfilePic } from "../lib/actions";
+import {updateUserPic, getProfilePic } from "../lib/actions";
 import { Avatar } from "@/components/ui/avatar";
 import {
   Button,
@@ -9,12 +9,13 @@ import {
   Box,
   PopoverTrigger,
   PopoverRoot,
-  PopoverContent
+  PopoverContent,
+  Input
 } from "@chakra-ui/react";
 import {
   DrawerBackdrop,
   DrawerBody,
-  DrawerCloseTrigger,
+  // DrawerCloseTrigger,
   DrawerContent,
   DrawerFooter,
   DrawerRoot,
@@ -31,6 +32,7 @@ export default function Logout({ username }: { username: string }) {
 
   const [userPic, setUserPic] = useState("");
   const [addItemModalOpen, setAddItemModalOpen] = useState(false);
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
   useEffect(() => {
     async function fetchProfilePic(username: string) {
@@ -42,13 +44,26 @@ export default function Logout({ username }: { username: string }) {
     fetchProfilePic(username);
   }, [username]);
 
+  const updatePP = async () => {
+    try {
+      if (!userPic) {
+        console.error("No image URL provided");
+        return;
+      }
+      await updateUserPic(username, userPic);
+      console.log("Profile picture updated!");
+    } catch (error) {
+      console.error("Failed to update profile picture:", error);
+    }
+  };
+
   const handleAddItemButtonClick = () => {
     setAddItemModalOpen(true);
   };
 
   return (
     <div className="flex items-center">
-      <p className="mx-2">{`${username}`}</p>
+      <p className="mx-2">{`${username}  `}</p>
       <DrawerRoot size={"md"}>
         <DrawerBackdrop />
         <DrawerTrigger asChild>
@@ -60,7 +75,7 @@ export default function Logout({ username }: { username: string }) {
             />
         </DrawerTrigger>
         <DrawerContent>
-          <DrawerCloseTrigger zIndex={100} />
+          {/* <DrawerCloseTrigger zIndex={100} /> */}
           <DrawerBody>
             {addItemModalOpen && (
               <div>
@@ -68,13 +83,12 @@ export default function Logout({ username }: { username: string }) {
                 <AddItemModal username={username || null} onClose={() => setAddItemModalOpen(false)} />
               </div>
             )}
-            <div className="edit-section">
+            <div className="edit-section flex flex-col items-center justify-center w-full">
               <Box bg={"currentBg"} className="sticky top-0 z-10 w-full h-fit p-3 flex items-center">
                 <DrawerTitle className="my-[6px]">{`${username}'s Profile`}</DrawerTitle>
               </Box>
 
-              <PopoverRoot>
-                <PopoverTrigger>
+              <PopoverRoot open={popoverOpen} onOpenChange={(e) => setPopoverOpen(e.open)}>
                   <Avatar
                     className="relative overflow-hidden hover:cursor-pointer"
                     h={56}
@@ -82,21 +96,42 @@ export default function Logout({ username }: { username: string }) {
                     m={3}
                     src={userPic || placeholderPic}
                   />
-                </PopoverTrigger>
+                <Box display="flex" alignItems="center" justifyContent="center" gap={2} mt={1}>
+                  <PopoverTrigger>
+                    <div className="mx-3 hover:cursor-pointer active:scale-[.95] ] flex items-center justify-center p-2.5 rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-all">
+                        Open Image Library
+                    </div>
+                  </PopoverTrigger>
+
+                  <Button className="p-3" m={3} onClick={() => updatePP()}>
+                    Save Avater
+                  </Button>
+                </Box>
                 <PopoverContent p={4} borderRadius="md" boxShadow="lg" width="auto" minWidth="300px">
-                  <ImageSelector setUserPic={setUserPic} />
+                  <ImageSelector setUserPic={(url) => {
+                    setUserPic(url);
+                    setPopoverOpen(false);
+                  }} />
                 </PopoverContent>
               </PopoverRoot>
 
+              <Input
+                name="new-proflie-pic"
+                className="w-4/5 m-3 p-3"
+                placeholder="Enter image URL for avatar or open image library"
+                value={userPic}
+                onChange={(e) => setUserPic(e.currentTarget.value)}
+              />
+
             </div>
-            <Box bg={"currentBg"} className="sticky top-0 z-10 w-full h-fit p-3 flex items-center mb-3">
-              <DrawerTitle>
-                Inventory
-                <IconButton p={3} className="mx-3 hover:cursor-pointer active:scale-[.95]" onClick={handleAddItemButtonClick}>
-                  Add Item
-                  <HiOutlinePlus/>
-                </IconButton>
-              </DrawerTitle>
+            <Box bg={"currentBg"} className="sticky top-0 z-10 w-full h-fit p-3 flex items-center justify-between mb-3">
+              <DrawerTitle className="text-lg font-semibold"> Inventory </DrawerTitle>
+
+                  <IconButton p={3} className="hover:cursor-pointer active:scale-[.95]" onClick={handleAddItemButtonClick}>
+                    Add Item
+                    <HiOutlinePlus/>
+                  </IconButton>
+              
             </Box>
             <Inventory username={username} />
             <DrawerTitle className="sticky top-0 z-10 w-full h-fit p-3 drop-shadow-md">
