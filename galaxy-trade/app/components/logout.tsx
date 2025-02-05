@@ -8,7 +8,7 @@ import {
   Button,
   IconButton,
   //  Input
-  Box
+  Box,
 } from "@chakra-ui/react";
 import {
   DrawerBackdrop,
@@ -26,6 +26,7 @@ import Inventory from "./InventoryPanel";
 import Offers from "./OfferPanel";
 // import EditPP from "../ui/editPP";
 import UploadImage from "./UploadImage";
+import PendingOffers from "./PendingOffers";
 
 export default function Logout({ username }: { username: string }) {
   const placeholderPic =
@@ -60,7 +61,6 @@ export default function Logout({ username }: { username: string }) {
     setAddItemModalOpen(true);
   };
 
-
   return (
     <div className="flex items-center">
       <p className="hidden md:block mx-2">{`Hello! ${username}`}</p>
@@ -72,7 +72,7 @@ export default function Logout({ username }: { username: string }) {
             size="2xl"
             name={username}
             src={userPic || placeholderPic}
-            />
+          />
         </DrawerTrigger>
         <DrawerContent>
           <DrawerCloseTrigger zIndex={100} />
@@ -80,11 +80,17 @@ export default function Logout({ username }: { username: string }) {
             {addItemModalOpen && (
               <div>
                 <div className="fixed inset-0 bg-gray-600 bg-opacity-50" />
-                <AddItemModal username={username || null} onClose={() => setAddItemModalOpen(false)} />
+                <AddItemModal
+                  username={username || null}
+                  onClose={() => setAddItemModalOpen(false)}
+                />
               </div>
             )}
             <div className="edit-section">
-              <Box bg={"currentBg"} className="sticky top-0 z-10 w-full h-fit p-3 flex items-center">
+              <Box
+                bg={"currentBg"}
+                className="sticky top-0 z-10 w-full h-fit p-3 flex items-center"
+              >
                 <DrawerTitle className="my-[6px]">{`${username}'s Profile`}</DrawerTitle>
               </Box>
               <Avatar
@@ -106,20 +112,47 @@ export default function Logout({ username }: { username: string }) {
 
               <UploadImage onUploadSuccess={handleImageUpload} />
             </div>
-            <Box bg={"currentBg"} className="sticky top-0 z-10 w-full h-fit p-3 flex items-center mb-3">
-              <DrawerTitle>
-                Inventory
-                <IconButton p={3} className="mx-3 hover:cursor-pointer active:scale-[.95]" onClick={handleAddItemButtonClick}>
-                  Add Item
-                  <HiOutlinePlus/>
-                </IconButton>
-              </DrawerTitle>
-            </Box>
-            <Inventory username={username} />
-            <DrawerTitle className="sticky top-0 z-10 w-full h-fit p-3 drop-shadow-md">
-              Offers
-            </DrawerTitle>
-            <Offers username={username} />
+            <div>
+              <Box
+                bg={"currentBg"}
+                className="sticky top-0 z-10 w-full h-fit p-3 flex items-center "
+              >
+                <DrawerTitle>
+                  Inventory
+                  <IconButton
+                    p={3}
+                    className="mx-3 hover:cursor-pointer active:scale-[.95]"
+                    onClick={handleAddItemButtonClick}
+                  >
+                    Add Item
+                    <HiOutlinePlus />
+                  </IconButton>
+                </DrawerTitle>
+              </Box>
+              <Inventory username={username} />
+            </div>
+            <div>
+              <Box
+                bg={"currentBg"}
+                className="sticky top-0 z-10 w-full h-fit p-3 flex items-center "
+              >
+                <DrawerTitle className="sticky top-0 z-10 w-full h-fit p-3 drop-shadow-md">
+                  Offers
+                </DrawerTitle>
+              </Box>
+              <Offers username={username} />
+            </div>
+            <div>
+              <Box
+                bg={"currentBg"}
+                className="sticky top-0 z-10 w-full h-fit p-3 flex items-center "
+              >
+                <DrawerTitle className="sticky top-0 z-10 w-full h-fit p-3 drop-shadow-md">
+                  Your Offers
+                </DrawerTitle>
+              </Box>
+              <PendingOffers username={username} />
+            </div>
           </DrawerBody>
           <DrawerFooter />
           <Button className="m-3 p-2 active:scale-95" onClick={() => signOut()}>

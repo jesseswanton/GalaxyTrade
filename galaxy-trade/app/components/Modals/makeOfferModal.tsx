@@ -8,7 +8,7 @@ import { Button, Text } from "@chakra-ui/react";
 
 interface ModalProps {
   item: Item;
-  username: string | null;
+  username: string;
   onClose: () => void;
 }
 
@@ -45,7 +45,7 @@ export const OfferModal: React.FC<ModalProps> = ({ item, username, onClose }) =>
       return;
     }
 
-    const offer = await addItemOffer(item.id, item.owner, offeredItemId);
+    const offer = await addItemOffer(item.id, username, offeredItemId);
 
     if (offer) {
       alert('Offer submitted successfully');

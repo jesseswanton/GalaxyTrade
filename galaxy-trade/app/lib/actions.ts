@@ -71,6 +71,7 @@ export async function getUserOffers(username: string): Promise<OfferItem[]> {
     items.description AS item_description,
     items.condition AS item_condition,
     items.image AS item_image,
+    items.owner,
     offers.offereditemid,
     offers.offerer,
     items_offered.title AS offered_item_title,
@@ -160,5 +161,48 @@ export async function deleteItem(id: number) {
     await sql`DELETE FROM items WHERE id = ${id}`
   } catch (error) {
     console.error(error)
+  }
+}
+
+export async function getPendingOffers(username: string): Promise<OfferItem[]> {
+  try {
+    const result = await sql<OfferItem>`
+        SELECT 
+    offers.id AS offer_id,
+    offers.item_id,
+    items.title AS item_title,
+    items.description AS item_description,
+    items.condition AS item_condition,
+    items.image AS item_image,
+    items.owner,
+    offers.offereditemid,
+    offers.offerer,
+    items_offered.title AS offered_item_title,
+    items_offered.description AS offered_item_description,
+    items_offered.condition AS offered_item_condition,
+    items_offered.image AS offered_item_image,
+    offers.status
+FROM 
+    offers
+JOIN 
+    items ON offers.item_id = items.id
+JOIN 
+    items AS items_offered ON offers.offereditemid = items_offered.id
+WHERE 
+    offers.offerer = ${username};
+
+        `;
+    return result.rows;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+export async function cancelOffer(id: number) {
+  try {
+    await sql`DELETE FROM offers WHERE id = ${id}`
+  } catch (error) {
+    console.error(error);
   }
 }

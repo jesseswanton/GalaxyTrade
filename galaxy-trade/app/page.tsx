@@ -86,7 +86,7 @@ const HomePage: FC = () => {
       {isModalOpen && selectedItem && (
         <OfferModal
           item={selectedItem}
-          username={user?.name || null}
+          username={user?.name}
           onClose={handleModalClose}
         />
       )}
