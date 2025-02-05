@@ -15,19 +15,19 @@ export default function Navbar({
 }) {
   return (
     <nav className="navbar flex items-center justify-between px-4 py-2 bg-gray-900 text-white">
-      <div className="flex items-center space-x-4">
+      <div className="space-x-4">
         <UploadImage />
         <ImageLibrary />
       </div>
 
-      <div className="flex-grow flex items-center justify-center">
+      <div className="">
         <div className="carousel-container">
           <Carousel />
           <h1 className="carousel-title">GalaxyTrade</h1>
         </div>
       </div>
 
-      <div className="links flex-grow flex items-center justify-end">
+      <div className="links flex items-center justify-end">
         {isLoggedIn ? <Logout username={username} /> : <Login />}
       </div>
     </nav>

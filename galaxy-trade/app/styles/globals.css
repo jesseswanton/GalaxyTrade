@@ -12,6 +12,7 @@
 }
 
 .navbar {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -19,6 +20,7 @@
   padding: 1rem 2rem;
   background: linear-gradient(to bottom, #181818 45%, transparent 150%);
   color: white;
+  transition: height 0.3s ease-in-out;
 }
 
 .navbar .logo h1 {
@@ -98,20 +100,23 @@ body {
 }
 
 .carousel-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
   width: 100%;
 }
 
 .carousel-title {
-  /* position: absolute; */
-  /* top: 15px;
-  right: 50%; */
-  /* transform: translateY(50%);
-  transform: translateX(45%); */
+  position: absolute;
+  top: 15px;
+  right: 50%;
+  transform: translateY(50%);
+  transform: translateX(45%);
   z-index: 2;
   font-size: 2rem;
   font-weight: bold;

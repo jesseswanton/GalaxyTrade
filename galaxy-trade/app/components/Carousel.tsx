@@ -75,7 +75,7 @@ const Carousel = () => {
     <Flex align="center">
       {/* Circular Image with Popover */}
       <PopoverRoot open={isImageClicked}>
-        <PopoverTrigger>
+        <PopoverTrigger maxWidth={{ base: '100px', md: '100px' }}>
           <Box
             position="relative"
             width={isImageClicked ? '400px' : '100px'}
