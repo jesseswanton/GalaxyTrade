@@ -5,14 +5,14 @@ import { CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary'
 import { useImageContext } from '../context/ImageContext';
 
 const UploadImage = () => {
-  const { setImages } = useImageContext();
+  const { imageSrc } = useImageContext();
 
   const handleUploadSuccess = (publicId: string) => {
     const storedImages = JSON.parse(localStorage.getItem("uploadedImages") || "[]");
     const updatedImages = [...storedImages, publicId];
     
     // Update the context and localStorage
-    setImages(updatedImages);
+    imageSrc(updatedImages);
   };
 
   return (

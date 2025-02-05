@@ -4,18 +4,18 @@ import { CldImage } from 'next-cloudinary';
 import { useImageContext } from '../context/ImageContext';
 
 const DisplayImage = () => {
-  const { imageSrc } = useImageContext();
+  const { images } = useImageContext();
 
   return (
     <CldImage
-        src={imageSrc}
-        width="50"
-        height="50"
-        alt="Uploaded image"
-        crop={{
-          type: 'auto',
-          source: true
-        }}
+      src={images.length > 0 ? images[0] : ""}
+      width="50"
+      height="50"
+      alt="Uploaded image"
+      crop={{
+        type: 'auto',
+        source: true
+      }}
     />
   );
 };
