@@ -75,18 +75,18 @@ const Carousel = () => {
     <Flex align="center">
       {/* Circular Image with Popover */}
       <PopoverRoot open={isImageClicked}>
-        <PopoverTrigger>
+        <PopoverTrigger maxWidth={{ base: '100px', md: '100px' }}>
           <Box
             position="relative"
             width={isImageClicked ? '400px' : '100px'}
             height={isImageClicked ? '400px' : '100px'}
             overflow="hidden"
             borderRadius={isImageClicked ? '100%' : '50%'}
-            marginRight="20px"
             flexShrink={0}
             cursor="pointer"
             transition="all 0.3s ease"
             onClick={handleImageClick}
+            marginLeft={isImageClicked ? "-150px" : "0px"}
           >
             <NextImage
               src={currentImage.url}

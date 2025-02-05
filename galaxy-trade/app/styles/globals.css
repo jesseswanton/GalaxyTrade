@@ -11,15 +11,16 @@
   box-sizing: border-box;
 }
 
-/* Basic styling for Navbar */
 .navbar {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #181818;
+  background: linear-gradient(to bottom, #181818 45%, transparent 150%);
   color: white;
+  transition: height 0.3s ease-in-out;
 }
 
 .navbar .logo h1 {
@@ -37,7 +38,6 @@
   text-decoration: underline;
 }
 
-/* Basic styling for Footer */
 .footer {
   background-color: #181818;
   color: white;
@@ -65,8 +65,11 @@
   margin-bottom: 1rem;
 }
 
-/* Make footer stick to the bottom */
 body {
+  background-image: url('/galaxy-swirl.jpg');
+  background-size: cover;
+  background-repeat: repeat;
+  background-attachment: fixed; 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -82,6 +85,11 @@ body {
 
 }
 
+.links a {
+  text-decoration: none;
+  color: white;
+}
+
 .inventory-stack * {
   display: block;
 }
@@ -91,18 +99,24 @@ body {
 }
 
 .carousel-container {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  transform: translateY(-50%);
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  width: 100%;
 }
 
 .carousel-title {
-  /* position: absolute; */
-  top: 15px;
+  position: absolute;
+  top: 8px;
   right: 50%;
-  /* transform: translateY(50%);
-  transform: translateX(45%); */
+  transform: translateY(50%);
+  transform: translateX(50%);
   z-index: 2;
   font-size: 2rem;
   font-weight: bold;
@@ -111,13 +125,8 @@ body {
   text-align: center;
 }
 
-.carousel-container .carousel {
-  position: relative;
-  z-index: 1;
-}
-
 .cloudinary-widget {
-  z-index: 1200 !important;
+  z-index: 9999 !important;
 }
 
 .inventory-stack * {
@@ -126,4 +135,13 @@ body {
 
 .inventory-card > * {
   margin: 3 0 3 0;
+}
+
+.popover-content {
+  position: fixed;
+  top: 50px;
+  left: 10px;
+  z-index: 9999;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
