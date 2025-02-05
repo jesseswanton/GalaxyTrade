@@ -7,7 +7,6 @@
     transition: transform 0.3s linear;
 }
 
-/* Animation starts when this class is added */
 .animated-planet.animate {
     animation: movePlanet 40s linear infinite;
 }
@@ -17,29 +16,30 @@
         transform: translate(0, 0) scale(1) rotate(0deg);
         opacity: 1;
     }
-    20% {
+    25% {
+        transform: translate(25vw, 18vh) scale(1.2) rotate(-25deg);
+    }
+    36% {
+        transform: translate(35vw, 20vh) scale(1.3) rotate(-30deg);
+    }
+    52% {
+        transform: translate(45vw, 22vh) scale(1.3) rotate(-35deg);
         opacity: 1;
     }
-    46% {
-        transform: translate(25vw, 18vh) scale(1.4) rotate(-35deg);
-    }
-    50% {
-        transform: translate(30vw, 18.7vh) scale(1.45) rotate(-32deg);
-        opacity: 1;
-    }
-    56% {
-        transform: translate(28vw, 18vh) scale(1.4) rotate(-30deg);
-    }
-    73% {
-        transform: translate(35vw, 13vh) scale(1.3) rotate(-20deg);
-        opacity: 1;
-    }
-    95% {
-        transform: translate(55vw, 5vh) scale(0.6) rotate(-10deg);
+    60% {
+        transform: translate(55vw, 15vh) scale(1.2) rotate(-40deg);
         opacity: 0.95;
     }
-    100% {
-        transform: translate(65vw, 0vh) scale(0.05) rotate(0deg);
+    75% {
+        transform: translate(90vw, -20vh) scale(0.15) rotate(-72deg);
         opacity: 0.05;
+    }
+    76% {
+        transform: translate(-50vh, -70vh) scale(.20) rotate(30deg);
+        opacity: .85;
+    }
+    100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
     }
 }

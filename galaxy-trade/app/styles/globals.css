@@ -38,7 +38,6 @@
   text-decoration: underline;
 }
 
-/* Basic styling for Footer */
 .footer {
   background-color: #181818;
   color: white;
@@ -102,8 +101,9 @@ body {
 .carousel-container {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 20%;
+  transform: translateY(-50%);
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -113,21 +113,16 @@ body {
 
 .carousel-title {
   position: absolute;
-  top: 15px;
+  top: 8px;
   right: 50%;
   transform: translateY(50%);
-  transform: translateX(45%);
+  transform: translateX(50%);
   z-index: 2;
   font-size: 2rem;
   font-weight: bold;
   color: white;
   text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
   text-align: center;
-}
-
-.carousel-container .carousel {
-  position: relative;
-  z-index: 1;
 }
 
 .cloudinary-widget {
@@ -143,7 +138,7 @@ body {
 }
 
 .popover-content {
-  position: absolute;
+  position: fixed;
   top: 50px;
   left: 10px;
   z-index: 9999;

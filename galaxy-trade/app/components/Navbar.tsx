@@ -15,7 +15,7 @@ export default function Navbar({
 }) {
   return (
     <nav className="navbar flex items-center justify-between px-4 py-2 bg-gray-900 text-white">
-      <div className="space-x-4">
+      <div className="space-x-4 z-50 relative">
         <UploadImage />
         <ImageLibrary />
       </div>
