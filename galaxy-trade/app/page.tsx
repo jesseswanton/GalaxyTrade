@@ -3,7 +3,7 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import { Box, SimpleGrid, Skeleton, Heading, Text } from "@chakra-ui/react";
+import { Box, SimpleGrid, Skeleton, Heading } from "@chakra-ui/react";
 import { ItemCard } from "./components/ItemCard";
 import { FetchItems } from "./api/items/fetchItems";
 import { Item } from "./types/items";
@@ -100,9 +100,8 @@ const HomePage: FC = () => {
       <Box maxW="1200px" mx="auto" p={6}>
         <Box textAlign="center" mb={6} color="white" p={4} borderRadius="md">
           <Heading as="h1" size="xl">
-            Welcome to GalaxyTrade 🌌
+          Find the best items in the galaxy
           </Heading>
-          <Text fontSize="lg">Items available for trade.</Text>
         </Box>
         <AnimatedPlanet />
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={6}>
