@@ -2,8 +2,18 @@
 import { AddItem } from '../../api/items/addItem';
 import CustomModal from './customModal';
 import { useState, useEffect } from 'react';
-import { Box, Button, Input, Textarea, VStack } from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Input,
+    Textarea,
+    VStack,
+    PopoverTrigger,
+    PopoverRoot,
+    PopoverContent
+} from "@chakra-ui/react";
 import { Item } from '../../types/items';
+import ImageSelector from "../ImageSelector";
 
 interface ModalProps {
     username: string | null;
@@ -18,6 +28,7 @@ export const AddItemModal: React.FC<ModalProps> = ({ username, onClose }) => {
     const [tradable, setTradable] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [owner, setOwner] = useState<string | null>(username);
+    const [popoverOpen, setPopoverOpen] = useState(false);
     
     useEffect(() => {
         if (username) {
@@ -59,6 +70,12 @@ export const AddItemModal: React.FC<ModalProps> = ({ username, onClose }) => {
             alert('An error occurred while adding the item');
         }
     }
+
+    useEffect(() => {
+        if (image) {
+            setPopoverOpen(false);
+        }
+    }, [image]);
 
     return (
         <CustomModal isOpen={true} onClose={onClose} title={`Add New Item`}>
@@ -104,7 +121,19 @@ export const AddItemModal: React.FC<ModalProps> = ({ username, onClose }) => {
                     </Box>
 
                     <Box>
-                        <label>Image URL</label>
+                    <label>Image URL </label>
+                        <PopoverRoot open={popoverOpen} onOpenChange={(e) => setPopoverOpen(e.open)}>
+                            <PopoverTrigger>
+                                <div className="mx-3 hover:cursor-pointer active:scale-[.95] ] flex items-center justify-center p-2.5 rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-all"
+                                    onClick={() => setPopoverOpen(true)}
+                                >
+                                    Open Image Library
+                                </div>
+                            </PopoverTrigger>
+                            <PopoverContent p={4} borderRadius="md" boxShadow="lg" width="auto" minWidth="300px">
+                            <ImageSelector setUserPic={setImage} />
+                            </PopoverContent>
+                        </PopoverRoot>
                         <Input
                             type="text"
                             placeholder="Enter image URL"
