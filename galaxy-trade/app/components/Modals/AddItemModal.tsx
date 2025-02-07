@@ -91,6 +91,7 @@ export const AddItemModal: React.FC<ModalProps> = ({ username, onClose }) => {
                         <label>Title</label>
                         <Input
                             type="text"
+                            p={3}
                             placeholder="Enter item title"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
@@ -100,6 +101,7 @@ export const AddItemModal: React.FC<ModalProps> = ({ username, onClose }) => {
                     <Box>
                         <label>Description</label>
                         <Textarea
+                        p={3}
                             placeholder="Enter item description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -110,8 +112,10 @@ export const AddItemModal: React.FC<ModalProps> = ({ username, onClose }) => {
                         <label>Condition</label>
                         <select
                             value={condition}
+                            className='border-gray border'
                             onChange={(e) => setCondition(e.target.value)}
                             style={{ width: "100%", padding: "8px", borderRadius: "4px" }}
+                            classN
                         >
                             <option value="New">New</option>
                             <option value="Good">Good</option>
@@ -123,7 +127,7 @@ export const AddItemModal: React.FC<ModalProps> = ({ username, onClose }) => {
                     <Box>
                     <label>Image URL </label>
                         <PopoverRoot open={popoverOpen} onOpenChange={(e) => setPopoverOpen(e.open)}>
-                            <PopoverTrigger>
+                            <PopoverTrigger mb={2}>
                                 <div className="mx-3 hover:cursor-pointer active:scale-[.95] ] flex items-center justify-center p-2.5 rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-all"
                                     onClick={() => setPopoverOpen(true)}
                                 >
@@ -136,6 +140,7 @@ export const AddItemModal: React.FC<ModalProps> = ({ username, onClose }) => {
                         </PopoverRoot>
                         <Input
                             type="text"
+                            p={3}
                             placeholder="Enter image URL"
                             value={image}
                             onChange={(e) => setImage(e.target.value)}
