@@ -18,9 +18,17 @@
   ## Usage
 
   Create an account and use the image upload button to upload an image of the item that you want to sell then heade to the inventory and click the add item button. Fill out the form and hit submit, that's it! you're ready to trade!
+
+  []
+  []
+  []
+  []
+  
   ## Contributing
 
-  calvincirwin https://github.com/calvincirwin jesseswanton https://github.com/jesseswanton Riley6639 https://github.com/Riley6639
+  calvincirwin https://github.com/calvincirwin 
+  jesseswanton https://github.com/jesseswanton 
+  Riley6639 https://github.com/Riley6639
   
   ## License
 
@@ -28,9 +36,6 @@
 
   
 
-  ## Tests
-
-  No tests
   ## Questions
 
   My GitHub:
