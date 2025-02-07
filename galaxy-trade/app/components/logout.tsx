@@ -15,7 +15,7 @@ import {
 import {
   DrawerBackdrop,
   DrawerBody,
-  // DrawerCloseTrigger,
+  DrawerCloseTrigger,
   DrawerContent,
   DrawerFooter,
   DrawerRoot,
@@ -28,6 +28,7 @@ import Offers from "./OfferPanel";
 // import EditPP from "../ui/editPP";
 import PendingOffers from "./PendingOffers";
 import ImageSelector from "../components/ImageSelector";
+import { HiOutlineMenu } from "react-icons/hi";
 
 export default function Logout({ username }: { username: string }) {
   const placeholderPic = "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
@@ -35,6 +36,19 @@ export default function Logout({ username }: { username: string }) {
   const [userPic, setUserPic] = useState("");
   const [addItemModalOpen, setAddItemModalOpen] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState(false);
+  const [size, setSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () =>
+      setSize({ width: window.innerWidth, height: window.innerHeight });
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
 
   useEffect(() => {
     async function fetchProfilePic(username: string) {
@@ -65,19 +79,23 @@ export default function Logout({ username }: { username: string }) {
 
   return (
     <div className="flex items-center">
-      <p className="mx-2">{`${username}  `}</p>
+      <p className="mx-2 hidden md:block">{`${username}  `}</p>
       <DrawerRoot size={"md"}>
         <DrawerBackdrop />
         <DrawerTrigger asChild>
-          <Avatar
+          {size.width < 768 ? (
+            <IconButton rounded={"full"}><HiOutlineMenu /></IconButton>
+          ): (
+            <Avatar
             className="hover:cursor-pointer"
             size="2xl"
             name={username}
             src={userPic || placeholderPic}
           />
+          )}
         </DrawerTrigger>
         <DrawerContent>
-          {/* <DrawerCloseTrigger zIndex={100} /> */}
+          <DrawerCloseTrigger zIndex={100} />
           <DrawerBody>
             {addItemModalOpen && (
               <div>

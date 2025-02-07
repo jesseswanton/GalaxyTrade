@@ -45,7 +45,7 @@ export default function LoginModal() {
         contact: contact,
       }),
     });
-    setAlert('account created succesfully!')
+    setAlert("account created succesfully!");
     setLoading(false);
     setLogIn(true);
   };
@@ -70,9 +70,14 @@ export default function LoginModal() {
         username: username,
         password: password,
         callbackUrl: "/",
-        redirect: true,
+        redirect: false,
       });
+      if (response?.error) {
+        setAlert("error validating")
+        return
+      }
       console.log(response);
+      window.location.reload();
     } catch (error) {
       console.error(error);
     } finally {

@@ -1,4 +1,5 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
+import { HiOutlineX } from "react-icons/hi";
 
 interface ModalProps {
   isOpen: boolean;
@@ -23,20 +24,19 @@ const CustomModal: React.FC<ModalProps> = ({ isOpen, onClose, title, children })
       zIndex="1000"
     >
       <Box
-        background="white"
         padding="4"
         borderRadius="md"
         boxShadow="lg"
+        backgroundColor={"Window"}
         width={{ base: "90%", md: "400px" }}
+        className="modal"
+        color={'WindowText'}
       >
         <Flex justifyContent="space-between" alignItems="center" mb="4">
           <Text fontSize="xl" fontWeight="bold">{title}</Text>
-          <Button size="sm" onClick={onClose}>X</Button>
+          <IconButton size="sm" rounded={"full"} onClick={onClose}><HiOutlineX /></IconButton>
         </Flex>
         {children}
-        <Flex justifyContent="flex-end" mt="4">
-          <Button onClick={onClose} variant="outline" mr="2">Cancel</Button>
-        </Flex>
       </Box>
     </Flex>
   );

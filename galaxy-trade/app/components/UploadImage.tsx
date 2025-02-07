@@ -3,6 +3,7 @@
 import { IconButton } from "@chakra-ui/react";
 import { CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary';
 import { useImageContext } from '../context/ImageContext';
+import { LuImagePlus } from "react-icons/lu";
 
 const UploadImage = () => {
   const { imageSrc } = useImageContext();
@@ -34,9 +35,12 @@ const UploadImage = () => {
     >
       {/* Button */}
       {({ open }) => (
-        <IconButton p={3} className="mx-3 hover:cursor-pointer active:scale-[.95]" onClick={() => open()}>
-          Upload Image
-        </IconButton>
+        <div>
+          <IconButton p={3} className="hidden md:flex mx-3 hover:cursor-pointer active:scale-[.95] justify-center items-center" onClick={() => open()}>
+            Upload Image
+          </IconButton>
+          <IconButton className="md:hidden rounded-full" onClick={() => open()}><LuImagePlus/></IconButton>
+        </div>
       )}
     </CldUploadWidget>
   );

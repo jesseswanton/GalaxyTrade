@@ -21,15 +21,15 @@ export default function Navbar({
     <nav className="navbar flex items-center justify-between px-4 py-2 bg-gray-900 text-white">
       <div className="space-x-4 z-50 relative">
         {user && (
-          <>
+          <div className="flex flex-wrap flex-col md:flex-row items-center">
             <UploadImage />
             <ImageLibrary />
-          </>
+          </div>
         )}
       </div>
 
       <div className="">
-        <div className="carousel-container">
+        <div className="carousel-container block">
           <Carousel />
           <h1 className="carousel-title">GalaxyTrade</h1>
         </div>
