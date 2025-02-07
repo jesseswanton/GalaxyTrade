@@ -115,7 +115,6 @@ export const AddItemModal: React.FC<ModalProps> = ({ username, onClose }) => {
                             className='border-gray border'
                             onChange={(e) => setCondition(e.target.value)}
                             style={{ width: "100%", padding: "8px", borderRadius: "4px" }}
-                            classN
                         >
                             <option value="New">New</option>
                             <option value="Good">Good</option>
