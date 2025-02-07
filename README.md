@@ -1,9 +1,10 @@
 
   # GalaxyTrade
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  
   ## Description
 
-  A space themed website to trade your trash for another mans treasure
+  A space themed website to trade your trash for another mans treasure.
   ## Table of contents
 
   * [Installation](#installation)
@@ -12,17 +13,33 @@
   * [Contributing](#contributing)
   * [Tests](#tests)
   * [Question](#questions)
+    
   ## Installation
 
-  navigate to https://galaxy-trade.vercel.app/
-  ## Usage
+ Clone the repo from https://github.com/Petrichor4/GalaxyTrade/
 
-  Create an account and use the image upload button to upload an image of the item that you want to sell then heade to the inventory and click the add item button. Fill out the form and hit submit, that's it! you're ready to trade!
+ Then run ```npm install``` and ```npm run dev```
+  
+ ## Usage
 
-  []
-  []
-  []
-  []
+Navigate to https://galaxy-trade.vercel.app/
+
+Create an account and use the image upload button to upload an image of the item that you want to sell then heade to the inventory and click the add item button. Fill out the form and hit submit, that's it! you're ready to trade!
+
+Homepage
+!(Homepage)[https://github.com/Petrichor4/GalaxyTrade/blob/main/galaxy-trade/public/GT6.PNG]
+
+Profile and Inventory
+!(Profile and Inventory)[https://github.com/Petrichor4/GalaxyTrade/blob/main/galaxy-trade/public/GT7.PNG]
+
+Offers and pending trades
+!(Offers and pending trades)[https://github.com/Petrichor4/GalaxyTrade/blob/main/galaxy-trade/public/GT8.PNG]
+
+Uploading an image to your library
+!(Uploading an image to your library)[https://github.com/Petrichor4/GalaxyTrade/blob/main/galaxy-trade/public/GT9.PNG]
+
+NASA API images
+!(NASA API images)[https://github.com/Petrichor4/GalaxyTrade/blob/main/galaxy-trade/public/GT10.PNG]
   
   ## Contributing
 
@@ -33,8 +50,6 @@
   ## License
 
   MIT License 2.0
-
-  
 
   ## Questions
 
