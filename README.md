@@ -27,18 +27,23 @@ Navigate to https://galaxy-trade.vercel.app/
 Create an account and use the image upload button to upload an image of the item that you want to sell then heade to the inventory and click the add item button. Fill out the form and hit submit, that's it! you're ready to trade!
 
 Homepage
+
 ![Homepage](https://github.com/Petrichor4/GalaxyTrade/blob/main/galaxy-trade/public/GT6.PNG)
 
 Profile and Inventory
+
 ![Profile and Inventory](https://github.com/Petrichor4/GalaxyTrade/blob/main/galaxy-trade/public/GT7.PNG)
 
 Offers and Pending Trades
+
 ![Offers and Pending Trades](https://github.com/Petrichor4/GalaxyTrade/blob/main/galaxy-trade/public/GT8.PNG)
 
 Uploading an Image to Your Library
+
 ![Uploading an Image to Your Library](https://github.com/Petrichor4/GalaxyTrade/blob/main/galaxy-trade/public/GT9.PNG)
 
 NASA API Images
+
 ![NASA API Images](https://github.com/Petrichor4/GalaxyTrade/blob/main/galaxy-trade/public/GT10.PNG)
 
   
