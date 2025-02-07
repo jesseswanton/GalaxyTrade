@@ -28,9 +28,11 @@ const CustomModal: React.FC<ModalProps> = ({ isOpen, onClose, title, children })
         borderRadius="md"
         boxShadow="lg"
         backgroundColor={"Window"}
+        height={'75%'}
         width={{ base: "90%", md: "400px" }}
         className="modal"
         color={'WindowText'}
+        overflow={"auto"}
       >
         <Flex justifyContent="space-between" alignItems="center" mb="4">
           <Text fontSize="xl" fontWeight="bold">{title}</Text>
