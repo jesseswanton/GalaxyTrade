@@ -18,7 +18,7 @@
 
  Clone the repo from https://github.com/Petrichor4/GalaxyTrade/
 
- Then run ```npm install``` and ```npm run dev```
+ Then run ```npm install``` and ```npm run develop```
   
  ## Usage
 
