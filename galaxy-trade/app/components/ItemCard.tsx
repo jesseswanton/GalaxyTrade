@@ -61,6 +61,7 @@ export const ItemCard = ({
           textStyle="sm"
           fontWeight="medium"
           letterSpacing="tight"
+          color="white"
           mt="2"
           bg="blackAlpha.800"
           p={2}
@@ -89,7 +90,7 @@ export const ItemCard = ({
               boxShadow: "none",
             }}
             p={4}
-            color="gray.50"
+            color="white"
             onClick={() => onMakeOfferClick(item)}
           >
             Make Offer
@@ -107,6 +108,7 @@ export const ItemCard = ({
               boxShadow: "none",
             }}
             p={4}
+            color={"white"}
             onClick={() => onDetailsClick(item)}
           >
             Details
