@@ -24,7 +24,7 @@
 
 Navigate to https://galaxy-trade.vercel.app/
 
-Create an account and use the image upload button to upload an image of the item that you want to sell then heade to the inventory and click the add item button. Fill out the form and hit submit, that's it! you're ready to trade!
+Create an account and use the image upload button to upload an image of the item that you want to sell then head to the inventory and click the add item button. Fill out the form and hit submit, that's it! you're ready to trade!
 
 Homepage
 
