@@ -50,8 +50,11 @@ NASA API Images
   ## Contributing
 
   calvincirwin https://github.com/calvincirwin 
+  
   jesseswanton https://github.com/jesseswanton 
+  
   Riley6639 https://github.com/Riley6639
+  
   
   ## License
 
