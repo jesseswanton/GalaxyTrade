@@ -30,19 +30,19 @@ export default function Offers({ username }: { username: string }) {
   }, []);
 
   const handleAccept = (
-    offererUsername: string,
     username: string,
+    offererUsername: string,
     id: number,
     offerId: number
   ) => {
     acceptOffer(username, offererUsername, id, offerId);
-    setUserOffers((prev) => prev.filter((item) => (item.item_id = id)));
+    setUserOffers((prev) => prev.filter((item) => (item.item_id !== id)));
   };
 
   const handleDecline = (id: number) => {
     console.log(`id of declined id: ${id}`)
     declineOffer(id);
-    setUserOffers((prev) => prev.filter((item) => (item.offereditemid = id)));
+    setUserOffers((prev) => prev.filter((item) => (item.offereditemid !== id)));
   };
 
   return (

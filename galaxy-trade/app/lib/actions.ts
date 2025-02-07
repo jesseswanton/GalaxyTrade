@@ -102,21 +102,44 @@ export async function acceptOffer(
   id: number,
   offerId: number
 ) {
-  try {
-    console.log('Username:', name, 'offerer:', offererUsername, 'id:', id, 'offerId:', offerId);
-    await sql`
-      UPDATE items
-      SET owner = ${offererUsername},
-      tradable = false
-      WHERE owner = ${name} AND id = ${id}
-      RETURNING *;
-    `;
-    await sql`UPDATE items SET owner = ${name}, tradable = false WHERE id = ${offerId} RETURNING *;`;
-    await sql`UPDATE offers SET status = 'accepted' WHERE offereditemid = ${offerId} RETURNING *;`;
-  } catch (error) {
-    console.error(error);
-  }
+  console.log('Processing offer:', { name, offererUsername, id, offerId });
+// Update first item ownership
+const updateItem1 = await sql`
+UPDATE items
+SET owner = ${offererUsername}, tradable = false
+WHERE owner = ${name} AND id = ${id}
+RETURNING *;
+`;
+
+if (updateItem1.rowCount === 0) {
+throw new Error('Failed to update first item ownership.');
 }
+
+// Update second item ownership
+const updateItem2 = await sql`
+UPDATE items
+SET owner = ${name}, tradable = false
+WHERE id = ${offerId}
+RETURNING *;
+`;
+
+if (updateItem2.rowCount === 0) {
+throw new Error('Failed to update second item ownership.');
+}
+
+// Update the offer status
+const updateOffer = await sql`
+UPDATE offers
+SET status = 'accepted'
+WHERE offereditemid = ${offerId}
+RETURNING *;
+`;
+
+if (updateOffer.rowCount === 0) {
+throw new Error('Failed to update offer status.');
+}
+
+console.log('Offer accepted successfully.');}
 
 export async function declineOffer(id: number) {
   try {

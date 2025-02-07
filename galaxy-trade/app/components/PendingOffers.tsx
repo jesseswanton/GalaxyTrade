@@ -35,7 +35,7 @@ export default function PendingOffers({ username }: { username: string }) {
 
   const handleCancel = (id: number) => {
     cancelOffer(id);
-    setPendingOffers((prev) => prev.filter((item) => item.offer_id === id));
+    setPendingOffers((prev) => prev.filter((item) => item.offer_id !== id));
   };
 
   return (
