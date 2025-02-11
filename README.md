@@ -4,7 +4,7 @@
   
   ## Description
 
-  A space themed website to trade your trash for another mans treasure.
+  A space themed website to trade your trash for anothers treasure.
   ## Table of contents
 
   * [Installation](#installation)
