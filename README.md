@@ -48,22 +48,15 @@ NASA API Images
 
   
   ## Contributing
-
-  calvincirwin https://github.com/calvincirwin 
   
-  jesseswanton https://github.com/jesseswanton 
+  Jesse Swanton https://github.com/jesseswanton 
+
+  Joseph Stone https://github.com/petrichor4
   
   Riley6639 https://github.com/Riley6639
-  
+
+  calvincirwin https://github.com/calvincirwin   
   
   ## License
 
   MIT License 2.0
-
-  ## Questions
-
-  My GitHub:
-  Petrichor4
-
-  If you would like to get in touch with me for questions about the project email me here:
-  stonepreston05@gmail.com
